@@ -1,0 +1,137 @@
+﻿@using EventManagementSystem.Web.Helpers
+
+@model EventManagementSystem.Web.Models.AuthorizationModel
+
+
+@{
+    bool isEditAllowed = AuthorizeUserCheck.HasAccess("Authorization", "UserEdit");
+}
+
+<form method="post" id="AuthForm">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <h4 class="card-title">
+                    <strong>@Model.User.FullName - Grup Bazlı Yetkileri</strong>
+                </h4>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @foreach (var authorization in Model.Roles.OrderBy(r => r.Name))
+                            {
+                                <div class="form-group">
+                                    <label class="switch switch-lg switch-success">
+                                        <input type="checkbox" value="@authorization.Id" name="UserAuthorizations" @(Model.User.UserRoles.Where(r => !r.IsDeleted).Select(r => r.RoleId).Contains(authorization.Id) ? "checked='checked'" : "") />
+                                        <span class="switch-indicator"></span>
+                                        <span class="switch-description">
+                                            <b>@authorization.Name</b> - @authorization.Description
+                                        </span>
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                @if (isEditAllowed)
+                {
+                    <footer class="card-footer text-right">
+                        <button type="submit" class="btn btn-info btn-label" href="#">
+                            <label><i class="fa fa-save"></i></label> Güncelle
+                        </button>
+                    </footer>
+                }
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <h4 class="card-title">
+                    <strong>@Model.User.FullName - Modül Bazlı Yetkileri</strong>
+                </h4>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @foreach (var parentModule in Model.Modules.Where(r => r.ParentModuleId == null).OrderBy(r => r.Order))
+                            {
+                                <div class="form-group" style="margin-left: 0px;">
+                                    <label class="switch switch-lg switch-success">
+                                        <input type="checkbox" value="@parentModule.Id" class="parent pr@(parentModule.Id)" name="UserModules" @(Model.User.UserRoles.Select(r => r.ModuleId).Contains(parentModule.Id) ? "checked='checked'" : "") />
+                                        <span class="switch-indicator"></span>
+                                        <span class="switch-description">
+                                            @parentModule.Description
+                                        </span>
+                                    </label>
+                                </div>
+                                foreach (var module in Model.Modules.Where(r => r.ParentModuleId == parentModule.Id).OrderBy(r => r.Order))
+                                {
+                                    <div class="form-group" style="margin-left: 40px;">
+                                        <label class="switch switch-lg switch-success">
+                                            <input type="checkbox" value="@module.Id" data-parent="@(module.ParentModuleId)" class="child p@(module.ParentModuleId)" name="UserModules" @(Model.User.UserRoles.Select(r => r.ModuleId).Contains(module.Id) ? "checked='checked'" : "") />
+                                            <span class="switch-indicator"></span>
+                                            <span class="switch-description">
+                                                @module.Description
+                                            </span>
+                                        </label>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                @if (isEditAllowed)
+                {
+                    <footer class="card-footer text-right">
+                        <button type="submit" class="btn btn-info btn-label" href="#">
+                            <label><i class="fa fa-save"></i></label> Güncelle
+                        </button>
+                    </footer>
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        var isFirstLoad = [];
+        $(function () {
+            $('.parent').change(function () {
+                var isChecked = $(this).is(":checked");
+                var childSelector = ".p" + $(this).val();
+                if (isChecked) {
+                    //$(childSelector).attr("disabled", true);
+                    $(childSelector).prop('checked', true);
+                } else {
+                    //$(childSelector).removeAttr("disabled");
+                    if (isFirstLoad.indexOf(childSelector) == -1) {
+                        isFirstLoad.push(childSelector);
+                    } else {
+                        $(childSelector).prop('checked', false);
+                    }
+                }
+            });
+
+            $('.child').change(function () {
+                var isChecked = $(this).is(":checked");
+                var parentId = $(this).attr("data-parent");
+                var parent = $(".pr" + parentId);
+                if (isChecked) {
+                    //$(childSelector).attr("disabled", true);
+                    //$(childSelector).prop('checked', true);
+                } else {
+                    //$(childSelector).removeAttr("disabled");
+                    $(parent).prop('checked', false);
+                }
+            });
+
+            $('#AuthForm').on('submit', function(e){
+                swal({
+                    title: 'Başarılı!',
+                    text: 'Yetkiler başarıyla güncellendi.',
+                    type: 'success',
+                    timer: 2000
+                });
+            });
+        })
+    </script>
+}

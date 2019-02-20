@@ -1,0 +1,463 @@
+﻿@using EventManagementSystem.Entity.Model.Common
+@model EventManagementSystem.Web.Models.HomeModel
+@section Styles
+{
+
+    <link href="/assets/css/core.min.css" rel="stylesheet">
+    <link href="/assets/css/app.min.css" rel="stylesheet">
+    <link href="/assets/css/style.min.css" rel="stylesheet">
+}
+
+
+@if (Model.User.IsAdmin)
+{
+    <main class="main-container">
+        <div class="main-content">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4">
+                            <div class="card card-body">
+                                <div class="flexbox">
+                                    <span style="font-size:48px;margin-left:20px;">
+                                        <i class="ti-shift-right text-success"></i>
+                                    </span>
+                                    <div class="text-right">
+                                        <span class="fw-400">Bu Hafta Eklenen Kullanıcı Sayısı</span><br>
+                                        <span>
+                                            <span class="fs-18 ml-1">@Model.AdminDashboard.ThisWeekAddedUserCount</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4 col-lg-4">
+                            <div class="card card-body">
+                                <div class="flexbox">
+                                    <span style="font-size:48px;margin-left:20px;">
+                                        <i class="ti-ruler-pencil text-danger"></i>
+                                    </span>
+                                    <div class="text-right">
+                                        <span class="fw-400">Bu Hafta Eklenen Proje Sayısı</span><br>
+                                        <span>
+                                            <span class="fs-18 ml-1">@Model.AdminDashboard.ThisWeekAddedProjectCount</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <div class="card card-body">
+                                <div class="flexbox">
+                                    <span style="font-size:48px;margin-left:20px;">
+                                        <i class="ti-credit-card text-success"></i>
+                                    </span>
+                                    <div class="text-right">
+                                        <span class="fw-400">Aktif Olan Lisans Sayısı</span><br>
+                                        <span>
+                                            <span class="fs-18 ml-1">@Model.AdminDashboard.ActiveLicenseCount</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4">
+                            <div class="card card-body">
+                                <div class="flexbox">
+                                    <div style="margin-left:20px;"><span data-provide="peity" data-type="pie" data-fill="#ff9f40,#f3f5f6" data-size="48">226,134</span></div>
+                                    <div class="text-right">
+                                        <span class="fw-400">Toplam Kullanıcı Sayısı</span><br>
+                                        <span>
+                                            <span class="fs-18 ml-1">@Model.AdminDashboard.TotalUserCount</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-4">
+                            <div class="card card-body">
+                                <div class="flexbox">
+                                    <span style="font-size:50px;margin-left:20px;">
+                                        <i class="ti-stats-up text-info"></i>
+                                    </span>
+                                    <div class="text-right">
+                                        <span class="fw-400">Toplam Proje Sayısı</span><br>
+                                        <span>
+                                            <span class="fs-18 ml-1">@Model.AdminDashboard.TotalProjectCount</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <div class="card card-body">
+                                <div class="flexbox">
+                                    <span style="font-size:50px;margin-left:20px;">
+                                        <i class="ti-layout-media-overlay-alt-2 text-info"></i>
+                                    </span>
+                                    <div class="text-right">
+                                        <span class="fw-400">Toplam Lisans Sayısı</span><br>
+                                        <span>
+                                            <span class="fs-18 ml-1">@Model.AdminDashboard.TotalLicenseCount</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="row">
+
+
+
+                <div class="col-lg-4">
+                    <div class="card">
+                        <h4 class="card-title"><strong>Toplam Proje</strong> Grafiği</h4>
+                        <div class="card-body">
+                            <canvas class="mx-auto" id="chart-pie" width="280" height="250"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title"><strong>Son </strong> Girişler</h5>
+
+                        </div>
+                        @if (Model.AdminDashboard.LastLoginUsers.Count > 0)
+                        {
+                            <table class="table table-striped table-hover">
+                                <tbody>
+                                    @foreach (var item in Model.AdminDashboard.LastLoginUsers.Take(6))
+                                    {
+                                        <tr>
+                                            <td><a class="hover-info" href="#">@(item.FullName)</a></td>
+                                            <td class="text-muted w-80px">@(item.LastLoginDate?.ToString("dd.MM.yyyy"))</td>
+                                            <td class="text-success fw-500 w-90px">@(item.LastLoginDate?.ToString("HH:mm"))</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <center style="padding:10px;"><span>Listenecek giriş yapmış kullanıcı bulunmamaktadır.</span></center>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title"><strong>Son Kayıt</strong> Olanlar</h5>
+                        </div>
+                        @if (Model.AdminDashboard.LastAddedUsers.Count > 0)
+                        {
+                            <table class="table table-striped table-hover">
+                                <tbody>
+                                    @foreach (var item in Model.AdminDashboard.LastAddedUsers.Take(6))
+                                    {
+                                        <tr>
+                                            <td><a class="hover-info" href="#">@(item.FullName)</a></td>
+                                            <td class="text-muted w-80px">@(item.CreationDate.ToString("dd.MM.yyyy"))</td>
+                                            <td class="text-success fw-500 w-90px">@(item.CreationDate.ToString("HH:mm"))</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <center style="padding:10px;"><span>Listenecek hiç kayıt olmuş kullanıcı bulunmamaktadır.</span></center>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+}
+else
+{
+    <main class="main-container">
+        <div class="main-content">
+            <div class="row">
+                <div class="col-md-6 col-lg-8">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="card card-body">
+                                <div class="flexbox">
+                                    <span style="font-size:48px;margin-left:20px;">
+                                        <i class="ti-ruler-pencil text-danger"></i>
+                                    </span>
+                                    <div class="text-right">
+                                        <span class="fw-400">Lisans Durumu</span><br>
+                                        <span>
+                                            <span class="fs-18 ml-1">@Model.UserLastLicenseType.Name</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 col-lg-6">
+                            <div class="card card-body">
+                                <div class="flexbox">
+                                    <span style="font-size:48px;margin-left:20px;">
+                                        <i class="ti-shift-right text-success"></i>
+                                    </span>
+                                    <div class="text-right">
+                                        <span class="fw-400">Kalan Lisans Günü</span><br>
+                                        <span>
+                                            <span class="fs-18 ml-1">@Model.UserLastLicenseDay</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="card card-body">
+                                <div class="flexbox">
+                                    <div style="margin-left:20px;"><span data-provide="peity" data-type="pie" data-fill="#ff9f40,#f3f5f6" data-size="48">226,134</span></div>
+                                    <div class="text-right">
+                                        <span class="fw-400">Yapılan Proje Sayısı</span><br>
+                                        <span>
+                                            <span class="fs-18 ml-1">@Model.UserProjectConut</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6">
+                            <div class="card card-body">
+                                <div class="flexbox">
+                                    <span style="font-size:50px;margin-left:20px;">
+                                        <i class="ti-credit-card text-info"></i>
+                                    </span>
+                                    <div class="text-right">
+                                        <span class="fw-400">Kalan Proje Hakkı</span><br>
+                                        <span>
+                                            <span class="fs-18 ml-1">@Model.UserRemainingProjectConut</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card">
+                        <h4 class="card-title"><strong>@(Model.User?.FullName)</strong></h4>
+                        <div class="card-body">
+                            <div class="flexbox gap-items-4">
+                                <img class="avatar avatar-xl" src="@(Model.User?.PhotoPath)"  onerror="this.src='/Assets/img/avatar/avatar_profile.jpg';">
+                                <div class="flex-grow">
+                                    <p><small class="fs-13">@(Model.User.UsereType == UserType.Corporate ? Model.User.CompanyName : "Bireysel")</small></p>
+                                    <p class="fs-14 text-fade mb-12"><i class="fa fa-user" style="padding-right: 10px;"></i>@("Son Giriş: " + Model.User?.LastLoginDate.Value.ToString())</p>
+                                    <p class="fs-14 text-fade mb-12"><i class="fa fa-envelope" style="padding-right: 10px;"></i>@(Model.User?.Email)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="row">
+
+
+
+                <div class="col-lg-4">
+                    <div class="card">
+                        <h4 class="card-title"><strong>Proje</strong> Grafiği</h4>
+                        <div class="card-body">
+                            <canvas class="mx-auto" id="chart-pie" width="280" height="250"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title"><strong>Son Yapılan</strong> Projeler</h5>
+                        </div>
+                        @if (Model.LastProjects.Count > 0)
+                        {
+                            <table class="table table-striped table-hover">
+                                <tbody>
+                                    @foreach (var item in Model.LastProjects.Take(6))
+                                    {
+                                        <tr>
+                                            <td><a class="hover-info" href="#">@(item.Name)</a></td>
+                                            <td class="text-muted w-80px">@(item.CreationDate.ToString("dd.MM.yyyy"))</td>
+                                            <td class="text-success fw-500 w-90px">@(item.CreationDate.ToString("HH:mm"))</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <center style="padding:10px;"><span>Listenecek hiç projeniz bulunmamaktadır.</span></center>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title"><strong>Gider</strong> Özeti</h5>
+                        </div>
+                        @if (Model.LastExpenses.Count > 0)
+                        {
+                            <table class="table table-striped table-hover">
+                                <tbody>
+                                    @foreach (var item in Model.LastExpenses.Take(6))
+                                    {
+                                        <tr>
+                                            <td><a class="hover-info" href="#">@(item.Name)</a></td>
+                                            <td class="text-muted w-80px">@(item.CreationDate.ToString("dd.MM.yyyy"))</td>
+                                            <td class="text-success fw-500 w-90px">@(item.CreationDate.ToString("HH:mm"))</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <center style="padding:10px;"><span>Listelenecek hiç harcamanız bulunmamaktadır.</span></center>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+}
+
+@section Scripts
+{
+
+
+    @if (Model.User.IsAdmin)
+    {
+        <script>
+
+            app.ready(function () {
+
+                new Chart($("#chart-pie"), {
+                    type: 'pie',
+
+                    // Data
+                    //
+                    data: {
+                        labels: [
+                            @foreach (var ProjectType in Model.ProjectTypes)
+                            {
+                                <text>
+                                    "@(ProjectType.Name.Replace("ç", "c").Replace("Ç", "C"))",
+                                </text>
+                            }
+                        ],
+                        datasets: [
+                            {
+                                data: [
+                                    @foreach (var ProjectType in Model.ProjectTypes)
+                                    {
+                                        <text>
+                                            "@(Model.AdminDashboard.AllProjects.Count(x => x.ProjectTypeId==ProjectType.Id))",
+                                        </text>
+                                    }
+                                ],
+                                backgroundColor: [
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255,99,132,1)',
+                                    'rgb(204, 153, 0)',
+                                    'rgb(204, 51, 153)',
+                                    'rgb(255, 153, 153)',
+                                    'rgb(153, 255, 51)',
+                                ]
+                            }]
+                    },
+
+                    // Options
+                    //
+                    options: {
+                        responsive: false
+                    }
+                });
+
+
+            });
+        </script>
+    }
+    else
+    {
+        <script>
+
+        app.ready(function () {
+
+            new Chart($("#chart-pie"), {
+                type: 'pie',
+
+                // Data
+                //
+                data: {
+                    labels: [
+                        @foreach (var ProjectType in Model.ProjectTypes)
+                        {
+                            <text>
+                                "@(ProjectType.Name.Replace("ç","c").Replace("Ç", "C"))",
+                            </text>
+                        }
+                    ],
+                    datasets: [
+                        {
+                            data: [
+                                @foreach (var ProjectType in Model.ProjectTypes)
+                                {
+                                    <text>
+                                        "@(Model.LastProjects.Count(x => x.ProjectTypeId==ProjectType.Id))",
+                                    </text>
+                                }
+                            ],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255,99,132,1)',
+                                'rgb(204, 153, 0)',
+                                'rgb(204, 51, 153)',
+                                'rgb(255, 153, 153)',
+                                'rgb(153, 255, 51)',
+                            ]
+                        }]
+                },
+
+                // Options
+                //
+                options: {
+                    responsive: false
+                }
+            });
+
+
+        });
+        </script>
+    }
+}

@@ -1,0 +1,285 @@
+﻿@using EventManagementSystem.Web.Helpers
+@model EventManagementSystem.Web.Models.AccountModel
+
+
+@section Styles
+{
+    <style>
+        .kurumsalDiv {
+            display: none;
+        }
+
+        .kisiselDiv {
+            display: none;
+        }
+    </style>
+}
+<div class="row" id="top_div">
+    <div class="col-12">
+        <div class="card card-inverse bg-img" style="background-image: url(/assets/img/header/profile.jpg);" data-overlay="2">
+            <div class="card-body text-center pb-50">
+                <a href="#">
+                    <img class="avatar avatar-xxl avatar-bordered" src="@Model.User.PhotoPath">
+                </a>
+                <h4 class="mt-2 mb-0" style="font-weight:bold;color:white;">@Model.User.FullName</h4>
+                <span><i class="fa fa-map-marker w-20px"></i>@(String.IsNullOrEmpty(Model.User.CompanyName) ? (Model.User.IsAdmin ? "Personel" : Model.User.Email) : Model.User.CompanyName)</span>
+            </div>
+            @if (!Model.User.IsAdmin)
+            {
+                <ul class="card-body flexbox flex-justified text-center" data-overlay="4">
+                    <li>
+                        <span class="opacity-60">Hesaplanan Proje Sayısı</span><br>
+                        <span class="fs-22">@Model.UserProjectConut</span>
+                    </li>
+                    <li>
+                        <span class="opacity-60">Kalan Proje Hakkı:</span><br>
+                        <span class="fs-22">@Model.UserRemainingProjectConut</span>
+                    </li>
+                    <li>
+                        <span class="opacity-60">Kalan Kullanım Süresi:</span><br>
+                        <span class="fs-22">@Model.UserLastLicenseDay</span>
+                    </li>
+                </ul>
+            }
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="card card-round card-shadowed px-50 py-30 mb-0" style="width:100%;">
+
+            <div class="text-center login-account-preview" id="AccountPreview">
+                <img id="Photo" class="avatar avatar-xxl" style="border-width: 2px; border-color: #ccc; border-style: solid;" src="~/assets/img/avatar/avatar_profile.jpg">
+                <h5 id="FullName" class="mt-3 mb-1"></h5>
+                <p id="DepartmentName" class="text-fade"></p>
+            </div>
+            @if (Request.QueryString["Auth"] != null)
+            {
+                <div class="alert alert-danger">
+                    <strong>@(Request.QueryString["ReturnUrl"])</strong><br /><br />
+                    Erişmek istediğiniz sayfaya <strong>yetkiniz bulunmamaktadır.</strong><br /><br />
+                    <a href="/">Ana Sayfaya Dön</a>
+                </div>
+            }
+            else
+            {
+                <form id="registerForm" method="post">
+                    <div class="row">
+                        @if (Model.HasError)
+                        {
+                            <div class="alert alert-danger">
+                                <strong>Hata Oluştu!</strong> @Model.ErrorMessage
+                            </div>
+                        }
+                        <div class="form-group col-md-6">
+                            <label>İsim Soyisim:</label>
+                            @Html.TextBoxFor(model => model.User.FullName, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>E-Posta Adresi:</label>
+                            @Html.TextBoxFor(model => model.User.Email, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Kayıt Tipi:</label>
+                            @Html.EnumDropDownListFor(x => Model.User.UsereType, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group kisiselDiv col-md-6">
+                            <label>TCKN (Tc Kimlik Numarası):</label>
+                            @Html.TextBoxFor(model => model.User.TCKN, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group kurumsalDiv col-md-4">
+                            <label>Firma Adı:</label>
+                            @Html.TextBoxFor(model => model.User.CompanyName, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group kurumsalDiv col-md-4">
+                            <label>Vergi Dairesi:</label>
+                            @Html.TextBoxFor(model => model.User.TaxAdministration, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group kurumsalDiv col-md-4">
+                            <label>Vergi Numarası:</label>
+                            @Html.TextBoxFor(model => model.User.TaxNumber, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label>Ülke:</label>
+                            @Html.DropDownListFor(model => model.SelectedCountryId, new SelectList(Model.CountryGroup, "Id", "Name"), "Ülke", new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>İl:</label>
+                            @Html.DropDownListFor(model => model.SelectedProvinceId, new SelectList(Model.ProvinceGroup, "Id", "Name"), "İl", new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>İlçe:</label>
+                            @Html.DropDownListFor(model => model.SelectedDistrictId, new SelectList(Model.DistrictGroup, "Id", "Name"), "İlçe", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label>Adres:</label>
+                            @Html.TextBoxFor(model => model.User.Adress, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Cep Telefonu:</label>
+                            @Html.TextBoxFor(model => model.User.PhoneNumber, new { @class = "form-control", data_format = "+90 ({{999}}) {{999}} {{9999}}" })
+                        </div>
+                        <div class="form-group kurumsalDiv col-md-6">
+                            <label>Sabit Hat Telefonu:</label>
+                            @Html.TextBoxFor(model => model.User.SabitTelNumber, new { @class = "form-control", data_format = "+90 ({{999}}) {{999}} {{9999}}" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Profil Resim:</label>
+                            @Html.HiddenFor(model => model.User.PhotoPath)
+                            <div id="Dropzone" data-provide="dropzone" data-url="@Url.Action("UploadUserImage")" data-parallel-uploads="1" max-files="1" dict-default-message="Dosya yüklemek/değiştirmek için buraya tıklayın veya dosyayı sürükleyin."></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Proje Resmi Önizlemesi:</label><br />
+                            <img id="MainPhoto" style="width:auto;min-width:150px;height:150px;" src="@(string.IsNullOrEmpty(Model.User.PhotoPath) ? "/Assets/img/avatar/avatar_profile.jpg" : (Model.User.PhotoPath + "?width=227&height=227&mode=max"))" alt="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-9" style="margin-top:10px;">
+                            <label class="switch switch-lg switch-success" style="white-space: normal !important;">
+                                @Html.CheckBoxFor(model => model.User.MailPermission, new { @class = "parent pr2" })
+                                <span class="switch-indicator"></span>
+                                <span class="switch-description">
+                                    E-posta ve SMS yoluyla bilgi almak istiyorum.
+                                </span>
+                            </label>
+                        </div>
+                        <div class="form-group col-md-3" style="margin-top:10px;">
+                            <button class="btn btn-bold btn-block btn-info" type="submit">GÜNCELLE</button>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="/assets/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="/assets/vendor/jquery-validation/localization/messages_tr.min.js"></script>
+    @if (Model.HasError)
+    {
+        <script>
+            $(function () {
+                $("#LoginErrorMessage").show();
+            });
+        </script>
+    }
+    <script data-provide="sweetalert">
+        $(function () {
+            $("#registerForm").validate({
+                ignore: ".ignore",
+                rules: {
+                    "@(Html.NameFor(model => model.SelectedCountryId))": { required: true },
+                    "@(Html.NameFor(model => model.SelectedProvinceId))": { required: true },
+                    "@(Html.NameFor(model => model.SelectedDistrictId))": { required: true },
+                    "@(Html.NameFor(model => model.SelectedLicenseTypeId))": { required: true },
+                    "@(Html.NameFor(model => model.User.FullName))": { required: true },
+                    "@(Html.NameFor(model => model.User.Email))": { required: true, email: true },
+                    "@(Html.NameFor(model => model.User.Adress))": { required: true },
+                    "@(Html.NameFor(model => model.User.PhoneNumber))": { required: true },
+                    "@(Html.NameFor(model => model.User.Password))": { required: true },
+                    "@(Html.NameFor(model => model.PasswordConfirmation))": { required: true },
+                }
+            });
+        });
+        $(function() {
+            setTimeout(function() {
+                    Dropzone.instances[Dropzone.instances.length - 1].on('success',
+                        function(file, response) {
+                            Dropzone.instances[Dropzone.instances.length - 1].removeFile(file);
+                            $("#MainPhoto").attr("src", response);
+                            $("#@(Html.IdFor(model=>model.User.PhotoPath))").val(response);
+                        });
+                },
+                2000);
+        });
+    </script>
+    <script>
+        var selected = $("#@(Html.IdFor(model => model.User.UsereType))").find("option:selected").val();
+        if (selected == 0) {
+
+            $(".kurumsalDiv").css("display", "none");
+            $(".kisiselDiv").css("display", "block");
+        }
+        else if (selected == 1) {
+
+            $(".kurumsalDiv").show();
+            $(".kisiselDiv").css("display", "none");
+        }
+
+        $("#@(Html.IdFor(model => model.User.UsereType))").change(function () {
+
+            var selected1 = $(this).find("option:selected").val();
+
+            if (selected1 == 0) {
+
+                $(".kurumsalDiv").css("display", "none");
+                $(".kisiselDiv").css("display", "block");
+            }
+            else if (selected1 == 1) {
+
+                $(".kurumsalDiv").css("display", "block");
+                $(".kisiselDiv").css("display", "none");
+            }
+        });
+
+        $("#@(Html.IdFor(model => model.SelectedCountryId))").change(function () {
+
+            var selected = $(this).find("option:selected").val();
+
+            $.ajax({
+                url: ReplaceParameters('@Url.Action("GetProvincesByCountryId", new{ CountryId = -1})', selected),
+                success: function (result) {
+                    if (result) {
+
+                        $("#@(Html.IdFor(model => model.SelectedDistrictId))").empty();
+                        $("#@(Html.IdFor(model => model.SelectedDistrictId))").append('<option value="">İlçe</option>');
+
+                        $("#@(Html.IdFor(model => model.SelectedProvinceId))").empty();
+
+                        $("#@(Html.IdFor(model => model.SelectedProvinceId))").append('<option value="">İl</option>');
+                        $.each(result, function (index, value) {
+                            $("#@(Html.IdFor(model => model.SelectedProvinceId))").append('<option value="' + value.Id + '">' + value.Name + '</option>');
+                        });
+
+                    }
+                }
+            });
+        });
+
+        $("#@(Html.IdFor(model => model.SelectedProvinceId))").change(function () {
+
+            var selected = $(this).find("option:selected").val();
+
+            $.ajax({
+                url: ReplaceParameters('@Url.Action("GetDistrictsByProvinceId", new{ ProvinceId = -1})', selected),
+                success: function (result) {
+                    if (result) {
+                        $("#@(Html.IdFor(model => model.SelectedDistrictId))").empty();
+
+                        $("#@(Html.IdFor(model => model.SelectedDistrictId))").append('<option value="">İlçe</option>');
+                        $.each(result, function (index, value) {
+                            $("#@(Html.IdFor(model => model.SelectedDistrictId))").append('<option value="' + value.Id + '">' + value.Name + '</option>');
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var elmnt = document.getElementsByClassName("main-content");
+            elmnt[0].scrollIntoView();
+        });
+    </script>
+}

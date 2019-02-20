@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+}
+
+@model EventManagementSystem.Web.Models.HomeModel
+<div class="topbar-left" style="width:100%;">
+    <span class="topbar-btn sidebar-toggler"><i>&#9776;</i></span>
+    <a class="topbar-btn d-none d-md-block" href="#" data-provide="fullscreen tooltip" title="Tam Ekran">
+        <i class="material-icons fullscreen-default">fullscreen</i>
+        <i class="material-icons fullscreen-active">fullscreen_exit</i>
+    </a>
+    @*<a class="topbar-btn d-none d-md-block" href="@Url.Action("WidgetList")">
+            <i class="fa fa-cogs"></i>
+        </a>*@
+    
+</div>
+<div class="topbar-right" style="width:0px;">
+    <a href="@Url.Action("Logout", "Account")">
+        <span class="topbar-btn" data-provide="tooltip" title="Çıkış Yap">
+            <i style="font-size: large;" class="ti-power-off"></i>
+        </span>
+    </a>
+
+    <div class="topbar-divider"></div>
+    <ul class="topbar-btns">
+        <li class="header-profile-name" style="margin-top:0px;width:250px;text-align: right;">
+            <span data-provide="tooltip">
+                @Html.Raw(Model.User.FullName + (Model.User.IsAdmin == false ? (Model.User.IsEmployee == true ? "<br /> Çalışan" : "<br /> Kalan Proje Hakkı: <strong>" + Model.UserRemainingProjectConut.ToString() + "</strong>") : "<br /> Personel"))
+            </span>
+        </li>
+    </ul>
+</div>
+
+<div style="padding: 10px; text-align: center; padding-top: 30px; display: none; font-size: 16px;" id="AjaxLoadingInfo">
+    <i class="fa fa-refresh fa-spin fa-fw text-success"></i>
+    <span>Bilgileriniz alınıyor...</span>
+</div>

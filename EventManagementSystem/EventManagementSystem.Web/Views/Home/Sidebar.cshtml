@@ -1,0 +1,510 @@
+﻿@model EventManagementSystem.Web.Models.HomeModel
+
+@using EventManagementSystem.Web.Helpers
+@{
+
+    bool isAllowedAuthorization = AuthorizeUserCheck.HasAccess("Authorization", "AuthorizationList");
+    bool isAllowedSettings = AuthorizeUserCheck.HasAccess("Setting", "SettingEdit");
+    bool isAllowedRegisterEdit = AuthorizeUserCheck.HasAccess("Account", "RegisterEdit");
+
+    bool isAllowedExpenseCategoryGroup = AuthorizeUserCheck.HasAccess("ExpenseCategory", "List");
+    bool isAllowedExpenseTagGroup = AuthorizeUserCheck.HasAccess("ExpenseTag", "List");
+    bool isAllowedExpenseGroup = AuthorizeUserCheck.HasAccess("Expense", "List");
+    bool isAllowedEmployeeGroup = AuthorizeUserCheck.HasAccess("Employee", "List");
+
+    bool isAllowedCountryGroup = AuthorizeUserCheck.HasAccess("Country", "List");
+    bool isAllowedAreaGroup = AuthorizeUserCheck.HasAccess("Area", "List");
+    bool isAllowedProvinceGroup = AuthorizeUserCheck.HasAccess("Province", "List");
+    bool isAllowedDistrictGroup = AuthorizeUserCheck.HasAccess("District", "List");
+
+
+    // PROJE BÖLÜM İŞLEMLERİ
+    bool isAllowedProjectTypeGroup = AuthorizeUserCheck.HasAccess("ProjectType", "ProjectTypeList");
+    bool isAllowedBuildingTypeGroup = AuthorizeUserCheck.HasAccess("BuildingType", "BuildingTypeList");
+    bool isAllowedBuildingTypeProjectTypeGroup = AuthorizeUserCheck.HasAccess("BuildingTypeProjectType", "BuildingTypeProjectTypeList");
+    bool isAllowedSectionGroup = AuthorizeUserCheck.HasAccess("Section", "SectionList");
+    bool isAllowedBuildingTypeSectionGroup = AuthorizeUserCheck.HasAccess("BuildingTypeSection", "BuildingTypeSectionList");
+
+
+
+    // İŞLEM YÖNETİMİ
+    bool isAllowedMainCategoryGroup = AuthorizeUserCheck.HasAccess("MainCategory", "List");
+    bool isAllowedOperationCategoryGroup = AuthorizeUserCheck.HasAccess("OperationCategory", "List");
+    bool isAllowedOperationGroup = AuthorizeUserCheck.HasAccess("Operation", "List");
+    bool isAllowedOperationValueGroup = AuthorizeUserCheck.HasAccess("OperationValue", "List");
+    bool isAllowedBrandGroup = AuthorizeUserCheck.HasAccess("Brand", "List");
+    bool isAllowedUnitGroup = AuthorizeUserCheck.HasAccess("Unit", "List");
+    bool isAllowedProjectTypeOperationGroup = AuthorizeUserCheck.HasAccess("ProjectTypeOperation", "List");
+    bool isAllowedOperationCategoryBrandGroup = AuthorizeUserCheck.HasAccess("OperationCategoryBrand", "List");
+    bool isAllowedOperationAreaValueGroup = AuthorizeUserCheck.HasAccess("OperationAreaValue", "List");
+
+
+
+
+    // LİSANS İŞLEMLERİ
+    bool isAllowedLicenseTypeGroup = AuthorizeUserCheck.HasAccess("LicenseType", "List");
+    bool isAllowedLicenseProjectTypeTypeGroup = AuthorizeUserCheck.HasAccess("LicenseProjectType", "List");
+    bool isAllowedLicenseTypeOperationCategoryGroup = AuthorizeUserCheck.HasAccess("LicenseTypeOperationCategory", "List");
+    bool isAllowedLicenseTypeOperationGroup = AuthorizeUserCheck.HasAccess("LicenseTypeOperation", "List");
+
+
+
+    bool isAllowedContractGroup = AuthorizeUserCheck.HasAccess("Contract", "List");
+    bool isAllowedDiscountCodeGroup = AuthorizeUserCheck.HasAccess("DiscountCode", "List");
+    bool isAllowedProjectGroup = AuthorizeUserCheck.HasAccess("Project", "List");
+
+
+
+
+}
+<header class="sidebar-header" style="background-color: #fa9c28;">
+    <a class="logo-icon" href="/"><img src="/assets/img/logo_EventManagementSystem.png" alt="logo icon"></a>
+
+    <span class="logo">
+        @*<a href="/">@Model.SiteTitle</a>*@
+        <a href="/"><img src="~/Assets/img/logo_right_white.png" style="width:95%;" /></a>
+
+    </span>
+
+    @*<span class="logo">
+            <a href="/"><img src="/assets/img/ytb-text.png" alt="logo"></a>
+        </span>*@
+    <span class="sidebar-toggle-fold"></span>
+</header>
+<nav class="sidebar-navigation">
+    <ul class="menu">
+        @*Proje Yönetim*@
+        @if (isAllowedProjectGroup)
+        {
+            <li class="menu-category">PROJE YÖNETİMİ</li>
+            if (isAllowedProjectGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("ProjectEdit","Project",new{ProjectId = 0})">
+                        <span class="icon fa fa-plus-square"></span>
+                        <span class="title">Yeni Proje</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedProjectGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("ProjectList", "Project")">
+                        <span class="icon fa fa-cube"></span>
+                        <span class="title">Projeler</span>
+                    </a>
+                </li>
+            }
+        }
+
+
+        @*GİDER YÖNETİMİ*@
+        @if (isAllowedExpenseCategoryGroup || isAllowedExpenseGroup || isAllowedEmployeeGroup)
+        {
+            <li class="menu-category">GİDER YÖNETİMİ</li>
+            if (!Model.User.IsAdmin)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="#" style="width:100%;margin-top:8px;" data-provide="modaler" data-url="@Url.Action("ExpenseCreate","Expense")" title="Yeni Gider Ekle" data-confirmVisible="false" data-footerVisible="false" data-size="lg" data-title="Gider Formu">
+                        <span class="icon fa fa-plus" style="color:white"></span><span class="title" style="color:white">Hızlı Gider Ekle</span>
+                    </a>
+                </li>
+            }
+
+            if (isAllowedExpenseGroup && !Model.User.IsAdmin)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("ExpenseList", "Expense")">
+                        <span class="icon fa fa-balance-scale"></span>
+                        <span class="title">Giderler</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedExpenseCategoryGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("ExpenseCategoryList", "ExpenseCategory")">
+                        <span class="icon fa fa-navicon"></span>
+                        <span class="title">Gider Kategori</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedExpenseTagGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("ExpenseTagList", "ExpenseTag")">
+                        <span class="icon fa fa-tags"></span>
+                        <span class="title">Gider Etiketleri</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedEmployeeGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("EmployeeList", "Employee")">
+                        <span class="icon fa fa-child"></span>
+                        <span class="title">Çalışanlar</span>
+                    </a>
+                </li>
+            }
+        }
+
+
+        @*PROFİL YÖNETİMİ*@
+        @if (isAllowedRegisterEdit)
+        {
+            <li class="menu-category">PROFİL YÖNETİMİ</li>
+            if (isAllowedRegisterEdit && !Model.User.IsAdmin)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("RegisterAddNewLicense", "Account")">
+                        <span class="icon fa fa-retweet"></span>
+                        <span class="title">Lisans Süresi Uzat</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedRegisterEdit)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("RegisterEdit", "Account")">
+                        <span class="icon fa fa-user"></span>
+                        <span class="title">Profilim</span>
+                    </a>
+                </li>
+            }
+
+            if (isAllowedRegisterEdit)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("RegisterChangePasswordInSite", "Account")">
+                        <span class="icon fa fa-edit"></span>
+                        <span class="title">Şifremi Değiştir</span>
+                    </a>
+                </li>
+            }
+        }
+
+
+
+
+        @*LOKASYONLAR*@
+        @if (isAllowedCountryGroup || isAllowedDistrictGroup || isAllowedAreaGroup || isAllowedProvinceGroup)
+        {
+            <li class="menu-category">LOKASYON YÖNETİMİ</li>
+            if (isAllowedCountryGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("CountryList", "Country")">
+                        <span class="icon fa fa-map-signs"></span>
+                        <span class="title">Ülkeler</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedAreaGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("AreaList", "Area")">
+                        <span class="icon fa fa-map-signs"></span>
+                        <span class="title">Bölgeler</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedProvinceGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("ProvinceList", "Province")">
+                        <span class="icon fa fa-map-signs"></span>
+                        <span class="title">İller</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedDistrictGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("DistrictList", "District")">
+                        <span class="icon fa fa-map-signs"></span>
+                        <span class="title">İlçeler</span>
+                    </a>
+                </li>
+            }
+        }
+
+
+
+
+
+        @*RPOJE BÖLÜM YÖNETİMİ*@
+        @if (isAllowedProjectTypeGroup || isAllowedBuildingTypeGroup || isAllowedBuildingTypeProjectTypeGroup || isAllowedSectionGroup || isAllowedBuildingTypeSectionGroup)
+        {
+            <li class="menu-category">PROJE BÖLÜM YÖNETİMİ</li>
+            if (isAllowedProjectTypeGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("ProjectTypeList", "ProjectType")">
+                        <span class="icon fa fa-university"></span>
+                        <span class="title">Proje Tipleri</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedBuildingTypeGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("BuildingTypeList", "BuildingType" )">
+                        <span class="icon fa fa-university"></span>
+                        <span class="title">Yapı Türleri</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedBuildingTypeProjectTypeGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("BuildingTypeProjectTypeList", "BuildingTypeProjectType")">
+                        <span class="icon fa fa-university"></span>
+                        <span class="title">Tip Türleri</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedSectionGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("SectionList", "Section")">
+                        <span class="icon fa fa-university"></span>
+                        <span class="title">Bölümler</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedBuildingTypeSectionGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("BuildingTypeSectionList", "BuildingTypeSection")">
+                        <span class="icon fa fa-university"></span>
+                        <span class="title">Tip Bölümleri</span>
+                    </a>
+                </li>
+            }
+        }
+
+
+
+        @*İŞLEM YÖNETİMİ*@
+        @if (isAllowedMainCategoryGroup || isAllowedOperationCategoryGroup || isAllowedOperationGroup || isAllowedOperationValueGroup || isAllowedBrandGroup || isAllowedUnitGroup || isAllowedProjectTypeOperationGroup || isAllowedOperationCategoryBrandGroup || isAllowedOperationAreaValueGroup)
+        {
+            <li class="menu-category">İŞLEM YÖNETİMİ</li>
+            if (isAllowedMainCategoryGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("MainCategoryList", "MainCategory")">
+                        <span class="icon fa fa-puzzle-piece"></span>
+                        <span class="title">Ana Kategoriler</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedOperationCategoryGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("OperationCategoryList", "OperationCategory")">
+                        <span class="icon fa fa-puzzle-piece"></span>
+                        <span class="title">Kategoriler</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedOperationGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("OperationList", "Operation")">
+                        <span class="icon fa fa-puzzle-piece"></span>
+                        <span class="title">İşlemler</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedOperationValueGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("OperationValueList", "OperationValue")">
+                        <span class="icon fa fa-puzzle-piece"></span>
+                        <span class="title">Değerler</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedBrandGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("BrandList", "Brand")">
+                        <span class="icon fa fa-puzzle-piece"></span>
+                        <span class="title">Markalar</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedUnitGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("UnitList", "Unit")">
+                        <span class="icon fa fa-puzzle-piece"></span>
+                        <span class="title">Birimler</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedProjectTypeOperationGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("ProjectTypeOperationList", "ProjectTypeOperation")">
+                        <span class="icon fa fa-puzzle-piece"></span>
+                        <span class="title">Proje Tip İşlemleri</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedOperationCategoryBrandGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("OperationCategoryBrandList", "OperationCategoryBrand")">
+                        <span class="icon fa fa-puzzle-piece"></span>
+                        <span class="title">Kategori Markaları</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedOperationAreaValueGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("OperationAreaValueList", "OperationAreaValue")">
+                        <span class="icon fa fa-puzzle-piece"></span>
+                        <span class="title">Bölgesel Fiyatlar</span>
+                    </a>
+                </li>
+            }
+        }
+
+
+
+        @*LİSANS YÖNETİMİ*@
+        @if (isAllowedLicenseTypeGroup || isAllowedLicenseProjectTypeTypeGroup || isAllowedLicenseTypeOperationCategoryGroup || isAllowedLicenseTypeOperationGroup)
+        {
+            <li class="menu-category">LİSANS YÖNETİMİ</li>
+            if (isAllowedLicenseTypeGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("LicenseTypeList", "LicenseType")">
+                        <span class="icon fa fa-shopping-basket"></span>
+                        <span class="title">Lisans Tipleri</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedLicenseProjectTypeTypeGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("LicenseProjectTypeList", "LicenseProjectType")">
+                        <span class="icon fa fa-shopping-basket"></span>
+                        <span class="title">Lisans Proje Tipleri</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedLicenseTypeOperationCategoryGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("LicenseTypeOperationCategoryList", "LicenseTypeOperationCategory")">
+                        <span class="icon fa fa-shopping-basket"></span>
+                        <span class="title">Lisans İşlem Kategorileri</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedLicenseTypeOperationGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("LicenseTypeOperationList", "LicenseTypeOperation")">
+                        <span class="icon fa fa-shopping-basket"></span>
+                        <span class="title">Lisans İşlemleri</span>
+                    </a>
+                </li>
+            }
+        }
+
+
+
+
+
+
+
+        @*Uygulamalar*@
+        @if (isAllowedSettings || isAllowedContractGroup || isAllowedDiscountCodeGroup)
+        {
+            <li class="menu-category">DİĞER YÖNETİMLER</li>
+            if (isAllowedSettings)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" data-provide="modaler" data-url="@Url.Action("SettingEdit","Setting",new{SettingId=1})" title="Yeni Ayar Ekle" data-confirmVisible="false" data-footerVisible="false" data-size="md" data-title="Ayar Formu" href="#">
+                        <span class="icon fa fa-gears"></span>
+                        <span class="title">Ayarlar</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedContractGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("ContractList", "Contract")">
+                        <span class="icon fa fa-newspaper-o"></span>
+                        <span class="title">Sözleşmeler</span>
+                    </a>
+                </li>
+            }
+            if (isAllowedDiscountCodeGroup)
+            {
+                <li class="menu-item">
+                    <a class="menu-link" href="@Url.Action("DiscountCodeList", "DiscountCode")">
+                        <span class="icon fa fa-ticket"></span>
+                        <span class="title">İndirim Kodları</span>
+                    </a>
+                </li>
+            }
+        }
+        @*Sistem Yönetimi - Yöneticilerin Kullanıcıların Görebileceği*@
+        @if (isAllowedSettings || isAllowedAuthorization)
+        {
+            <li class="leftmenu-management-bgcolor">
+                <a class="menu-link" href="#">
+                    <span class="icon fa fa-gears leftmenu-management-fontcolor"></span>
+                    <span class="title leftmenu-management-fontcolor">Sistem Yönetimi</span>
+                    <span class="arrow"></span>
+                </a>
+
+                <ul class="menu-submenu">
+                    @if (isAllowedSettings)
+                    {
+                        <li class="menu-item">
+                            <a class="menu-link" href="@Url.Action("Settings", "Account")">
+                                <span class="dot leftmenu-management-dotcolor"></span>
+                                <span class="title leftmenu-management-fontcolor">Giriş Sayfası Ayarları</span>
+                            </a>
+                        </li>
+                    }
+                    @if (isAllowedAuthorization)
+                    {
+                        <li class="menu-item">
+                            <a class="menu-link" href="@Url.Action("AuthorizationList", "Authorization")">
+                                <span class="dot leftmenu-management-dotcolor"></span>
+                                <span class="title leftmenu-management-fontcolor">Kullanıcı Yetki Grupları</span>
+                            </a>
+                        </li>
+                    }
+                    @if (isAllowedAuthorization)
+                    {
+                        <li class="menu-item">
+                            <a class="menu-link" href="@Url.Action("UserList", "Authorization")">
+                                <span class="dot leftmenu-management-dotcolor"></span>
+                                <span class="title leftmenu-management-fontcolor">Kullanıcılar</span>
+                            </a>
+                        </li>
+                    }
+                    @if (isAllowedAuthorization)
+                    {
+                        <li class="menu-item">
+                            <a class="menu-link" href="@Url.Action("PurchasedLicenseList", "Authorization")">
+                                <span class="dot leftmenu-management-dotcolor"></span>
+                                <span class="title leftmenu-management-fontcolor">Satın alınan Lisanslar</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+
+    </ul>
+</nav>

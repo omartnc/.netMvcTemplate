@@ -1,0 +1,183 @@
+﻿@model EventManagementSystem.Web.Models.AuthorizationModel
+
+
+@section Styles
+{
+    <style>
+        .form-control_filtre {
+            width: 100% !important;
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4>Kullanıcılar</h4>
+        <header style="width: 100%; padding-top: 0px !important;">
+            <div class="row">
+                <div class="form-group col-lg-3">
+                    <label>Kullanıcı Tipi:</label>
+                    @Html.DropDownListFor(model => model.User.IsAdmin, new SelectList(new[] { new { Value = "true", Text = "Personel" }, new { Value = "false", Text = "Müşteri" }, }, "Value", "Text", Model), "Hepsi", new { @class = "form-control_filtre", data_live_search = "true", data_provide = "selectpicker", data_size = "10" })
+                </div>
+                <div class="form-group col-lg-3">
+                    <label>Ödeme Durumu:</label>
+                    @Html.DropDownListFor(model => model.waitingPayment, new SelectList(new[] { new { Value = "true", Text = "Ödeme Yapan" }, new { Value = "false", Text = "Ödeme Bekleyen" }, }, "Value", "Text", Model), "Hepsi", new { @class = "form-control_filtre", data_live_search = "true", data_provide = "selectpicker", data_size = "10" })
+                </div>
+                <div class="form-group col-lg-3">
+                    <label>Anahtar Kelime:</label>
+                    <div class="input-group" style="width:100%;">
+                        <input type="text" id="input_search" class="form-control" placeholder="Kullanıcı Adı Veya Kayıt Tarihi Yazınız..." aria-describedby="basic-addon1">
+                        <span class="input-group-addon">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group col-lg-2">
+                    <label></label>
+                    <button class="btn btn-label btn-info" style="width:100%;margin-top:8px;" data-provide="modaler" data-url="@Url.Action("UserEdit", new {UserId = 0})" title="Yeni Kullanıcı Ekle" data-confirmVisible="false" data-footerVisible="false" data-size="lg" data-title="Kullanıcı Formu"><label><i class="fa fa-plus"></i></label> Yeni Ekle</button>
+                </div>
+            </div>
+        </header>
+    </div>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th>Kullanıcı Adı Soyadı</th>
+                                <th>E-Posta Adresi</th>
+                                <th>Tip</th>
+                                <th>Paraşüt Müşt. No</th>
+                                <th>Kayıt Tarihi</th>
+                                <th>Erişim Yetkileri</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script data-provide="sweetalert">
+    var tip = "";
+    var odemedurumu = "";
+    var dataUrl = "@Url.Action("UserListQuery")?tip=" + tip + "&odemedurumu=" + odemedurumu;
+        var table = null;
+        $(function () {
+            table = $('.table').DataTable({
+                "aLengthMenu": [
+                    [25, 50, 100, 1000, 10000000],
+                    [25, 50, 100, 1000, "All"]
+                ],
+                "iDisplayLength": 10000000,
+                "processing": true,
+                "language": {
+                    processing: '<i class="fa fa-spinner fa-spin fa-2x fa-fw" style="border-style:none;border-width:0px;"></i><span class="sr-only">Yükleniyor...</span>'
+                },
+                "serverSide": true,
+                "searching": true,
+                "dom": 't,p,l,r,i,B', "responsive": true, "bAutoWidth": false, "buttons": ['excel', 'pdf',
+                  
+                ],
+                "ajax": {
+                    url: dataUrl,
+                    type: 'POST'
+                },
+                "columns": [
+                    {
+                        "data": "Id",
+                        "render": function (data, type, row) {
+                            var EditUrl = ReplaceParameters('@Url.Action("UserEdit", new {UserId = -1})', data);
+
+                            var Edit = row.FullName +
+                                ' <a data-provide="modaler" data-url="' + EditUrl + '" data-title="Kullanıcı Formu" data-size="lg" class="table-action hover-danger" href="#">&nbsp;<i class="ti-pencil islem-button"></i></a>  ';
+
+                            var deleteUrl = 'javascript:DeleteItem(' + data + ')';
+                            var deleteButton = '<a class="table-action hover-danger" href="' +
+                                deleteUrl + '"><i class="ti-trash islem-button"></i></a>';
+
+                            return Edit + deleteButton;
+                        }
+                    },
+                    { "data": "Email" },
+                    { "data": "Tip" },
+                    { "data": "ParasutNo" },
+                    {
+                        "data": "CreationDate",
+                        "render": function (data) {
+                            return moment(data).format('DD.MM.YYYY');
+                        }
+                    },
+                    {
+                        "data": "Id",
+                        "render": function (data, type, row) {
+                            var erisiEditUrl = ReplaceParameters('@Url.Action("UserAuthorizationEdit", new{ userId = -1})', data);
+                            var erisimData = '<b>' +
+                                row.AuthorizationCount +
+                                '</b> Grup, <b>' +
+                                row.ModuleCount +
+                                '</b> Modül Yetkisi Seçili<a class="table-action hover-success" href="' +
+                                erisiEditUrl +
+                                '">&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>';
+
+                            return erisimData;
+                        }
+                    }
+                ]
+            });
+            $('#input_search').keyup(function () {
+                table.search($(this).val()).draw();
+            });
+        });
+
+        function DeleteItem(id) {
+            swal({
+                title: 'Emin misiniz?',
+                text: 'Bu Kaydı Silmek istediğinizden emin misiniz?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonClass: 'btn btn-danger',
+                cancelButtonClass: 'btn btn-seconary',
+                confirmButtonText: 'EVET, SİL',
+                cancelButtonText: 'HAYIR'
+            }).then(function () {
+                $.ajax({
+                    url: ReplaceParameters('@Url.Action("UserDelete", new{id = -1})', id), success: function (result) {
+                        if (result == "True") {
+                            swal({
+                                title: 'Başarılı!',
+                                text: 'Kayıt başarıyla silindi',
+                                type: 'success',
+                                timer: 2000
+                            });
+                            ReloadTable();
+                        }
+                    }
+                });
+            });
+        }
+
+        $("#@(Html.IdFor(model => model.User.IsAdmin))").change(function () {
+
+        tip = $(this).find("option:selected").val();
+        dataUrl = "@Url.Action("UserListQuery")?tip=" + tip + "&odemedurumu=" + odemedurumu;
+            table.ajax.url(dataUrl).load();
+        });
+
+    $("#@(Html.IdFor(model => model.waitingPayment))").change(function () {
+
+        odemedurumu = $(this).find("option:selected").val();
+        dataUrl = "@Url.Action("UserListQuery")?tip=" + tip + "&odemedurumu=" + odemedurumu;
+            table.ajax.url(dataUrl).load();
+        });
+        function ReloadTable() {
+            table.draw();
+        }
+    </script>
+}

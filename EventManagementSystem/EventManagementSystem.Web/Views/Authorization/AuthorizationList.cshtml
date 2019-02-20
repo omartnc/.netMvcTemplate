@@ -1,0 +1,64 @@
+﻿@using EventManagementSystem.Web.Helpers
+
+@model EventManagementSystem.Web.Models.AuthorizationModel
+
+@{
+    bool isEditAllowed = AuthorizeUserCheck.HasAccess("Authorization", "AuthorizationEdit");
+}
+
+<div class="row">
+    @if (isEditAllowed)
+    {
+    <div class="col-lg-12">
+        <h4>Yetkilendirmeler</h4>
+        <header class="flexbox align-items-center media-list-header bg-transparent b-0 py-16 pl-0" style="width:100%;padding-top:0px !important;">
+            <div class="flexbox align-items-right">
+                <div class="btn-group pull-right">
+                    <a class="btn btn-label btn-info" href="@Url.Action("AuthorizationEdit", new { authorizationId = 0 })"><label><i class="fa fa-plus"></i></label> Yeni Ekle</a>
+                </div>
+            </div>
+        </header>
+    </div>
+    }
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Adı</th>
+                                <th>Açıklaması</th>
+                                <th>Erişim Yetkileri</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var authorization in Model.Roles)
+                            {
+                                <tr>
+                                    <td>
+                                        @authorization.Name
+                                        @if (isEditAllowed)
+                                        {
+                                            <a class="table-action hover-success" href="@Url.Action("AuthorizationEdit", new { authorizationId = authorization.Id })">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                    <td>@authorization.Description</td>
+                                    <td>
+                                        <b>@authorization.RoleModules.Count(r => r.Module.ParentModuleId == null)</b> Ana, <b>@authorization.RoleModules.Count(r => r.Module.ParentModuleId != null)</b> Alt Yetki Grubu Seçili
+                                        <a class="table-action hover-success" href="@Url.Action("AuthorizationItemEdit", new {authorizationId = authorization.Id})">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

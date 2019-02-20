@@ -1,0 +1,94 @@
+﻿@using EventManagementSystem.Web.Helpers
+
+@model EventManagementSystem.Web.Models.AuthorizationModel
+
+@{
+    bool isEditAllowed = AuthorizeUserCheck.HasAccess("Authorization", "AuthorizationEdit");
+}
+
+<form method="post">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <h4 class="card-title">
+                    <strong>Yetki Grubu Yetkilerini Düzenle</strong>
+                </h4>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 all-items">
+                            @foreach (var parentModule in Model.Modules.Where(r => r.ParentModuleId == null).OrderBy(r => r.Order))
+                            {
+                                <div class="form-group" style="margin-left: 0px;">
+                                    <label class="switch switch-lg switch-success">
+                                        <input type="checkbox" value="@parentModule.Id" class="parent pr@(parentModule.Id)" name="AuthorizationItems" @(Model.RoleModules.Contains(parentModule.Id) ? "checked='checked'" : "") />
+                                        <span class="switch-indicator"></span>
+                                        <span class="switch-description">
+                                            @parentModule.Description
+                                        </span>
+                                    </label>
+                                </div>
+                                foreach (var module in Model.Modules.Where(r => r.ParentModuleId == parentModule.Id).OrderBy(r => r.Order))
+                                {
+                                    <div class="form-group" style="margin-left: 40px;">
+                                        <label class="switch switch-lg switch-success">
+                                            <input type="checkbox" value="@module.Id" data-parent="@(module.ParentModuleId)" class="child p@(module.ParentModuleId)" name="AuthorizationItems" @(Model.RoleModules.Contains(module.Id) ? "checked='checked'" : "") />
+                                            <span class="switch-indicator"></span>
+                                            <span class="switch-description">
+                                                @module.Description
+                                            </span>
+                                        </label>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                @if (isEditAllowed)
+                {
+                    <footer class="card-footer text-right">
+                        <button type="submit" class="btn btn-info btn-label" href="#">
+                            <label><i class="fa fa-save"></i></label> Güncelle
+                        </button>
+                    </footer>
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        var isFirstLoad = [];
+        $(function () {
+            $('.parent').change(function () {
+                var isChecked = $(this).is(":checked");
+                var childSelector = ".p" + $(this).val();
+                if (isChecked) {
+                    //$(childSelector).attr("disabled", true);
+                    $(childSelector).prop('checked', true);
+                } else {
+                    //$(childSelector).removeAttr("disabled");
+                    if (isFirstLoad.indexOf(childSelector) == -1) {
+                        isFirstLoad.push(childSelector);
+                    } else {
+                        $(childSelector).prop('checked', false);
+                    }
+                }
+            }).trigger("change");
+
+            $('.child').change(function () {
+                var isChecked = $(this).is(":checked");
+                var parentId = $(this).attr("data-parent");
+                var parent = $(".pr" + parentId);
+                if (isChecked) {
+                    //$(childSelector).attr("disabled", true);
+                    //$(childSelector).prop('checked', true);
+                } else {
+                    //$(childSelector).removeAttr("disabled");
+                    $(parent).prop('checked', false);
+                }
+            });
+        })
+    </script>
+}
+

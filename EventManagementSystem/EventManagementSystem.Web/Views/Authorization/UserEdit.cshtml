@@ -1,0 +1,307 @@
+﻿@model EventManagementSystem.Web.Models.AccountModel
+
+@{
+    Layout = null;
+}
+
+<style>
+    .kurumsalDiv {
+        display: none;
+    }
+
+    .kisiselDiv {
+        display: none;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <form data-provide="jqueryform" id="registerForm" method="post" action="@Url.Action("UserEdit", new {UserId = Model.User.Id})">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            @if (Model.HasError)
+                            {
+                                <div class="alert alert-danger">
+                                    <strong>Hata Oluştu!</strong> @Model.ErrorMessage
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>İsim Soyisim:</label>
+                            @Html.TextBoxFor(model => model.User.FullName, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>E-Posta Adresi:</label>
+                            @Html.TextBoxFor(model => model.User.Email, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Şifre:</label>
+                            @Html.PasswordFor(model => model.User.Password, new { @class = "form-control", value = Model.User.Password })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Şifre Tekrar:</label>
+                            @Html.PasswordFor(model => model.PasswordConfirmation, new { @class = "form-control", value = Model.User.Password })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Kayıt Tipi:</label>
+                            @Html.EnumDropDownListFor(x => Model.User.UsereType, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group kisiselDiv col-md-6">
+                        <label>TCKN (Tc Kimlik Numarası):</label>
+                        @Html.TextBoxFor(model => model.User.TCKN, new { @class = "form-control" })
+                    </div>
+                    <div class="row">
+                        <div class="form-group kurumsalDiv col-md-4">
+                            <label>Firma Adı:</label>
+                            @Html.TextBoxFor(model => model.User.CompanyName, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group kurumsalDiv col-md-4">
+                            <label>Vergi Dairesi:</label>
+                            @Html.TextBoxFor(model => model.User.TaxAdministration, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group kurumsalDiv col-md-4">
+                            <label>Vergi Numarası:</label>
+                            @Html.TextBoxFor(model => model.User.TaxNumber, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label>Ülke:</label>
+                            @Html.DropDownListFor(model => model.SelectedCountryId, new SelectList(Model.CountryGroup, "Id", "Name"), "Ülke", new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>İl:</label>
+                            @Html.DropDownListFor(model => model.SelectedProvinceId, new SelectList(Model.ProvinceGroup, "Id", "Name"), "İl", new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>İlçe:</label>
+                            @Html.DropDownListFor(model => model.SelectedDistrictId, new SelectList(Model.DistrictGroup, "Id", "Name"), "İlçe", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label>Adres:</label>
+                            @Html.TextBoxFor(model => model.User.Adress, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Cep Telefonu:</label>
+                            @Html.TextBoxFor(model => model.User.PhoneNumber, new { @class = "form-control", data_format = "+90 ({{999}}) {{999}} {{9999}}" })
+                        </div>
+                        <div class="form-group kurumsalDiv col-md-6">
+                            <label>Sabit Hat Telefonu:</label>
+                            @Html.TextBoxFor(model => model.User.SabitTelNumber, new { @class = "form-control", data_format = "+90 ({{999}}) {{999}} {{9999}}" })
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Profil Resim:</label>
+                            @Html.HiddenFor(model => model.User.PhotoPath)
+                            <div id="Dropzone" data-provide="dropzone" data-url="@Url.Action("UploadUserImage")" data-parallel-uploads="1" max-files="1" dict-default-message="Dosya yüklemek/değiştirmek için buraya tıklayın veya dosyayı sürükleyin."></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Proje Resmi Önizlemesi:</label><br />
+                            <img id="MainPhoto" style="width:auto;min-width:150px;height:150px;" src="@(string.IsNullOrEmpty(Model.User.PhotoPath) ? "/Assets/img/avatar/avatar_profile.jpg" : (Model.User.PhotoPath + "?width=227&height=227&mode=max"))" alt="" />
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top:10px;">
+                        <label class="switch switch-lg switch-success">
+                            @Html.CheckBoxFor(model => model.User.IsActive, new { @class = "parent pr2" })
+                            <span class="switch-indicator"></span>
+                            <span class="switch-description">
+                                Aktif
+                            </span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="switch switch-lg switch-success">
+                            @Html.CheckBoxFor(model => model.User.IsAdmin, new { @class = "parent pr2" })
+                            <span class="switch-indicator"></span>
+                            <span class="switch-description">
+                                Admin Kullanıcı
+                            </span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="switch switch-lg switch-success">
+                            @Html.CheckBoxFor(model => model.User.MailPermission, new { @class = "parent pr2" })
+                            <span class="switch-indicator"></span>
+                            <span class="switch-description">
+                                E-posta ve SMS yoluyla bilgi almak istiyorum.
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer modal-footer2">
+                <button type="button" class="btn btn-label btn-danger" data-dismiss="modal"><label><i class="fa fa-close"></i></label> Kapat</button>
+                <button type="submit" class="btn btn-label btn-success"><label><i class="fa fa-save"></i></label> Kaydet</button>
+            </div>
+    </div>
+    </form>
+</div>
+</div>
+
+
+
+
+<script src="/assets/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="/assets/vendor/jquery-validation/localization/messages_tr.min.js"></script>
+@if (Model.HasError)
+{
+    <script>
+        $(function () {
+            $("#LoginErrorMessage").show();
+        });
+    </script>
+}
+<script data-provide="sweetalert">
+    $(function () {
+        $("#registerForm").validate({
+            ignore: ".ignore",
+            rules: {
+                "@(Html.NameFor(model => model.SelectedCountryId))": { required: true },
+                "@(Html.NameFor(model => model.SelectedProvinceId))": { required: true },
+                "@(Html.NameFor(model => model.SelectedDistrictId))": { required: true },
+                "@(Html.NameFor(model => model.User.FullName))": { required: true },
+                "@(Html.NameFor(model => model.User.Email))": { required: true, email: true },
+                "@(Html.NameFor(model => model.User.Password))": { required: true },
+                "@(Html.NameFor(model => model.PasswordConfirmation))": { required: true },
+            }
+        });
+    });
+    $(function() {
+        setTimeout(function() {
+                Dropzone.instances[Dropzone.instances.length - 1].on('success',
+                    function(file, response) {
+                        Dropzone.instances[Dropzone.instances.length - 1].removeFile(file);
+                        $("#MainPhoto").attr("src", response);
+                        $("#@(Html.IdFor(model=>model.User.PhotoPath))").val(response);
+                    });
+            },
+            2000);
+    });
+</script>
+<script>
+    function ControlPassWord() {
+        var pss= $("#@(Html.IdFor(model => model.User.Password))").val();
+        var conPss = $("#@(Html.IdFor(model => model.PasswordConfirmation))").val();
+        if (pss==conPss) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    var selected = $("#@(Html.IdFor(model => model.User.UsereType))").find("option:selected").val();
+    if (selected == 0) {
+
+        $(".kurumsalDiv").css("display", "none");
+        $(".kisiselDiv").css("display", "block");
+    }
+    else if (selected == 1) {
+
+        $(".kurumsalDiv").show();
+        $(".kisiselDiv").css("display", "none");
+    }
+
+    $("#@(Html.IdFor(model => model.User.UsereType))").change(function () {
+
+        var selected1 = $(this).find("option:selected").val();
+
+        if (selected1 == 0) {
+
+            $(".kurumsalDiv").css("display", "none");
+            $(".kisiselDiv").css("display", "block");
+        }
+        else if (selected1 == 1) {
+
+            $(".kurumsalDiv").css("display", "block");
+            $(".kisiselDiv").css("display", "none");
+        }
+    });
+
+    $("#@(Html.IdFor(model => model.SelectedCountryId))").change(function () {
+
+        var selected = $(this).find("option:selected").val();
+
+        $.ajax({
+            url: ReplaceParameters('@Url.Action("GetProvincesByCountryId", new{ CountryId = -1})', selected),
+            success: function (result) {
+                if (result) {
+
+                    $("#@(Html.IdFor(model => model.SelectedDistrictId))").empty();
+                    $("#@(Html.IdFor(model => model.SelectedDistrictId))").append('<option value="">İlçe</option>');
+
+                    $("#@(Html.IdFor(model => model.SelectedProvinceId))").empty();
+
+                    $("#@(Html.IdFor(model => model.SelectedProvinceId))").append('<option value="">İl</option>');
+                    $.each(result, function (index, value) {
+                        $("#@(Html.IdFor(model => model.SelectedProvinceId))").append('<option value="' + value.Id + '">' + value.Name + '</option>');
+                    });
+                }
+            }
+        });
+    });
+
+    $("#@(Html.IdFor(model => model.SelectedProvinceId))").change(function () {
+
+        var selected = $(this).find("option:selected").val();
+
+        $.ajax({
+            url: ReplaceParameters('@Url.Action("GetDistrictsByProvinceId", new{ ProvinceId = -1})', selected),
+            success: function (result) {
+                if (result) {
+                    $("#@(Html.IdFor(model => model.SelectedDistrictId))").empty();
+
+                    $("#@(Html.IdFor(model => model.SelectedDistrictId))").append('<option value="">İlçe</option>');
+                    $.each(result, function (index, value) {
+                        $("#@(Html.IdFor(model => model.SelectedDistrictId))").append('<option value="' + value.Id + '">' + value.Name + '</option>');
+                    });
+                }
+            }
+        });
+    });
+</script>
+<script>
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+        if (!ControlPassWord()) {
+            swal({
+                title: 'Hata!',
+                text: 'Şifreler Aynı Değil',
+                type: 'error',
+                timer: 2000
+            });
+            return;
+        }
+        if ($("#registerForm").valid()) {
+            $(this).ajaxSubmit({
+                success: function (responseText) {
+                    swal({
+                        title: 'Başarılı!',
+                        text: 'İşlem başarıyla kaydedildi',
+                        type: 'success',
+                        timer: 2000
+                    });
+                    $('.close').click();
+                    ReloadTable();
+                },
+                url: $(this).attr("action")
+            });
+        }
+
+    });
+</script>
