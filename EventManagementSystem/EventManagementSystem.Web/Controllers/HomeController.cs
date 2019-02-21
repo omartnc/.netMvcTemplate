@@ -39,7 +39,11 @@ namespace EventManagementSystem.Web.Controllers
 
             return View(model);
         }
-
+        [HttpGet]
+        public ActionResult PageNotFound()
+        {
+            return View();
+        }
         [AuthorizeUser(Action = "Header")]
         public PartialViewResult Header()
         {

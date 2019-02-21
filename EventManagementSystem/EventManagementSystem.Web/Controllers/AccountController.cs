@@ -179,7 +179,7 @@ namespace EventManagementSystem.Web.Controllers
                         {
                             FullName = authUser.FullName,
                             Guid = authUser.ChangePasswordCode,
-                            Subject = "İnşaat Hesabı Şifre Değiştirme Kodu",
+                            Subject = accountModel.SiteHeader+" Şifre Değiştirme Kodu",
                             MailAddress = authUser.Email,
                             MailTemplate = MailTemplate.ForgottenPassword
                         });
@@ -333,7 +333,7 @@ namespace EventManagementSystem.Web.Controllers
                         var isSendWelcome = MailSendHelper.SendEmail(new MailModel
                         {
                             FullName = authUser.FullName,
-                            Subject = "İnşaat Hesabı Hoşgeldiniz",
+                            Subject = accountModel.SiteHeader+" Hoşgeldiniz",
                             Guid = authUser.MailConfirmationCode,
                             MailAddress = authUser.Email,
                             MailTemplate = MailTemplate.Welcome
@@ -726,7 +726,7 @@ namespace EventManagementSystem.Web.Controllers
                         var isSendWelcome = MailSendHelper.SendEmail(new MailModel
                         {
                             FullName = registerUser.FullName,
-                            Subject = "İnşaat Hesabı Hoşgeldiniz",
+                            Subject = accountModel.SiteHeader+" Hoşgeldiniz",
                             UserID = registerUser.Id,
                             Guid = registerUser.MailConfirmationCode,
                             MailAddress = registerUser.Email,
@@ -739,24 +739,7 @@ namespace EventManagementSystem.Web.Controllers
                             return View(accountModel);
                         }
                         #endregion
-                        #region Mail onayla
-
-                        //var isSend = MailSendHelper.SendEmail(new MailModel
-                        //{
-                        //    FullName = registerUser.FullName,
-                        //    Guid = registerUser.MailConfirmationCode,
-                        //    Subject = "İnşaat Hesabı E-Mail Onaylama",
-                        //    MailAddress = registerUser.Email,
-                        //    MailTemplate = MailTemplate.Confirm
-                        //});
-
-                        //if (!isSend)
-                        //{
-                        //    accountModel.HasError = true;
-                        //    accountModel.ErrorMessage = "Hata Oluştu. Daha sonra tekrar deneyiniz.";
-                        //    return View(accountModel);
-                        //}
-                        #endregion
+                       
 
                         var userGroup = RoleService.GetByName("Standart Kullanıcı");
                         if (userGroup != null)
@@ -1126,7 +1109,7 @@ namespace EventManagementSystem.Web.Controllers
                     {
                         FullName = user.FullName,
                         Guid = user.ChangePasswordCode,
-                        Subject = "İnşaat Hesabı Şifre Değiştirme Kodu",
+                        Subject = Model.SiteHeader + " Şifre Değiştirme Kodu",
                         MailAddress = user.Email,
                         MailTemplate = MailTemplate.ForgottenPassword
                     });

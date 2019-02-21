@@ -226,7 +226,7 @@ INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [
 GO
 INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (19, N'LdapFilter', N'OU=YTB Users', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
 GO
-INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (20, N'SiteHeader', N'İnşaat Hesabı', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (20, N'SiteHeader', N'Site Adı', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
 GO
 INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (21, N'AzureLoginStatus', N'Devre Dışı', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
 GO

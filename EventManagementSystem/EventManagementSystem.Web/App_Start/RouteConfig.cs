@@ -17,6 +17,12 @@ namespace EventManagementSystem.Web
             AreaRegistration.RegisterAllAreas();
 
             routes.MapRoute(
+                "404-PageNotFound",
+                "{*url}",
+                new { controller = "Home", action = "PageNotFound" }
+            );
+
+            routes.MapRoute(
                 "Default",
                 "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional },
