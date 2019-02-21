@@ -1,0 +1,238 @@
+﻿
+GO
+SET IDENTITY_INSERT [dbo].[Modules] ON 
+GO
+INSERT [dbo].[Modules] ([Id], [Name], [Description], [Order], [ParentModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (1, N'Home', N'Home', 1, NULL, 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Modules] ([Id], [Name], [Description], [Order], [ParentModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (2, N'Home.Index', N'Home.Index', 1, 1, 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Modules] ([Id], [Name], [Description], [Order], [ParentModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (3, N'Home.Header', N'Home.Header', 2, 1, 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Modules] ([Id], [Name], [Description], [Order], [ParentModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (4, N'Home.Footer', N'Home.Footer', 3, 1, 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Modules] ([Id], [Name], [Description], [Order], [ParentModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (5, N'Home.Sidebar', N'Home.Sidebar', 4, 1, 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Modules] ([Id], [Name], [Description], [Order], [ParentModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (6, N'Authorization', N'Authorization', 2, NULL, 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Modules] ([Id], [Name], [Description], [Order], [ParentModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (15, N'Authorization.AuthorizationList', N'Authorization.AuthorizationList', 3, 6, 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Modules] ([Id], [Name], [Description], [Order], [ParentModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (16, N'Authorization.UserList', N'Authorization.UserList', 4, 6, 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Modules] ([Id], [Name], [Description], [Order], [ParentModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (18, N'Authorization.AuthorizationEdit', N'Authorization.AuthorizationEdit', 4, 6, 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Modules] ([Id], [Name], [Description], [Order], [ParentModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (19, N'Authorization.UserEdit', N'Authorization.UserEdit', 4, 6, 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Modules] ([Id], [Name], [Description], [Order], [ParentModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (20, N'Account', N'Account', 1, NULL, 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Modules] ([Id], [Name], [Description], [Order], [ParentModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (21, N'Account.AccountSettings', N'Account.Settings', 2, 20, 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Modules] ([Id], [Name], [Description], [Order], [ParentModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (22, N'Account.RegisterEdit', N'Account.RegisterEdit', 2, 20, 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[Modules] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Users] ON 
+GO
+INSERT [dbo].[Users] ([Id], [Username], [Order], [Email], [Password], [FullName], [CompanyName], [ContractText], [Adress], [PhoneNumber], [TCKN], [PhotoPath], [MailPermission], [MailConfirmation], [MailConfirmationCode], [IsChangePassword], [ChangePasswordCode], [IsAdmin], [LastLoginDate], [IsFirstLogin], [IsInitialized], [IsEmployee], [parentUserId], [IsTestUser], [SidebarPozitionConstant], [FailedLoginCount], [SecondTitle], [IsActive], [IsDeleted], [CreationDate]) VALUES (2, NULL, 9999, N'a@a.com', N'admin', N'Admin', NULL, NULL, N'admin', N'0123 456 78 99', NULL, NULL, 1, 1, N'70bb74f791914fa6a60c2c3e5cdf7c43', 0, N'477ffc63e389483a9031c0872a4b8dbb', 0, CAST(N'2019-02-21T14:32:06.623' AS DateTime), NULL, NULL, NULL, NULL, 0, 1, 0, NULL, 1, 0, CAST(N'2019-02-21T12:22:58.707' AS DateTime))
+GO
+INSERT [dbo].[Users] ([Id], [Username], [Order], [Email], [Password], [FullName], [CompanyName], [ContractText], [Adress], [PhoneNumber], [TCKN], [PhotoPath], [MailPermission], [MailConfirmation], [MailConfirmationCode], [IsChangePassword], [ChangePasswordCode], [IsAdmin], [LastLoginDate], [IsFirstLogin], [IsInitialized], [IsEmployee], [parentUserId], [IsTestUser], [SidebarPozitionConstant], [FailedLoginCount], [SecondTitle], [IsActive], [IsDeleted], [CreationDate]) VALUES (3, NULL, 9999, N'b@a.com', N'12345', N'omer tunc', NULL, NULL, N'sasad', N'0065 464 65 46', NULL, NULL, 1, 1, N'b3514d2796724a028aa6d351b4398783', 0, N'a3dad4fc4a2d4b88b87e267b7c0648b0', 0, CAST(N'2019-02-21T14:34:17.023' AS DateTime), NULL, NULL, NULL, NULL, 0, 0, 0, NULL, 1, 0, CAST(N'2019-02-21T14:26:43.180' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[Users] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Roles] ON 
+GO
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsActive], [IsDeleted], [CreationDate]) VALUES (1, N'Standart Kullanıcı', N'En temel seviyede erişim izni verilen kullanıcı grubu.', 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsActive], [IsDeleted], [CreationDate]) VALUES (2, N'Super Admin', N'Tüm ekranlara erişebilen kullanıcı grubu', 1, 0, CAST(N'2018-05-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsActive], [IsDeleted], [CreationDate]) VALUES (3, N'Test User', N'Test Kullanıcı', 1, 0, CAST(N'2018-01-10T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsActive], [IsDeleted], [CreationDate]) VALUES (4, N'Personel', N'Sistem üzerindeki bazı panellere ulaşım hakkına sahip kişiler.', 0, 0, CAST(N'2018-07-26T13:34:46.857' AS DateTime))
+GO
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsActive], [IsDeleted], [CreationDate]) VALUES (5, N'Gider Yönetimi Çalışanı', N'Gider Yönetimindeki Çalışanların otomatik olarak mensup olacağı Yetki Grubu.', 0, 0, CAST(N'2018-08-14T14:04:23.060' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[Roles] OFF
+GO
+SET IDENTITY_INSERT [dbo].[UserRoles] ON 
+GO
+INSERT [dbo].[UserRoles] ([Id], [UserId], [ModuleId], [RoleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (1, 2, NULL, 2, 1, 0, CAST(N'2019-02-21T12:24:44.847' AS DateTime))
+GO
+INSERT [dbo].[UserRoles] ([Id], [UserId], [ModuleId], [RoleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (2, 3, NULL, 1, 1, 0, CAST(N'2019-02-21T14:27:26.070' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[UserRoles] OFF
+GO
+SET IDENTITY_INSERT [dbo].[RoleModules] ON 
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (1, 2, 1, 1, 0, CAST(N'2019-02-21T12:30:31.073' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (2, 2, 2, 1, 0, CAST(N'2019-02-21T12:30:31.140' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (3, 2, 3, 1, 0, CAST(N'2019-02-21T12:30:31.153' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (4, 2, 4, 1, 0, CAST(N'2019-02-21T12:30:31.170' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (5, 2, 5, 1, 0, CAST(N'2019-02-21T12:30:31.183' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (6, 2, 20, 1, 0, CAST(N'2019-02-21T12:30:31.200' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (7, 2, 21, 1, 0, CAST(N'2019-02-21T12:30:31.223' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (8, 2, 22, 1, 0, CAST(N'2019-02-21T12:30:31.240' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (9, 2, 6, 1, 0, CAST(N'2019-02-21T12:30:31.250' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (10, 2, 15, 1, 0, CAST(N'2019-02-21T12:30:31.267' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (11, 2, 16, 1, 0, CAST(N'2019-02-21T12:30:31.280' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (12, 2, 18, 1, 0, CAST(N'2019-02-21T12:30:31.293' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (13, 2, 19, 1, 0, CAST(N'2019-02-21T12:30:31.310' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (14, 1, 1, 1, 1, CAST(N'2019-02-21T12:32:45.227' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (15, 1, 2, 1, 1, CAST(N'2019-02-21T12:32:45.243' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (16, 1, 3, 1, 1, CAST(N'2019-02-21T12:32:45.257' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (17, 1, 4, 1, 1, CAST(N'2019-02-21T12:32:45.270' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (18, 1, 5, 1, 1, CAST(N'2019-02-21T12:32:45.283' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (19, 3, 1, 1, 1, CAST(N'2019-02-21T12:32:53.847' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (20, 3, 2, 1, 1, CAST(N'2019-02-21T12:32:53.860' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (21, 3, 3, 1, 1, CAST(N'2019-02-21T12:32:53.877' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (22, 3, 4, 1, 1, CAST(N'2019-02-21T12:32:53.887' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (23, 3, 5, 1, 1, CAST(N'2019-02-21T12:32:53.903' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (24, 4, 1, 1, 1, CAST(N'2019-02-21T12:33:01.873' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (25, 4, 2, 1, 1, CAST(N'2019-02-21T12:33:01.887' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (26, 4, 3, 1, 1, CAST(N'2019-02-21T12:33:01.900' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (27, 4, 4, 1, 1, CAST(N'2019-02-21T12:33:01.913' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (28, 4, 5, 1, 1, CAST(N'2019-02-21T12:33:01.927' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (29, 5, 1, 1, 1, CAST(N'2019-02-21T12:33:07.417' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (30, 5, 2, 1, 1, CAST(N'2019-02-21T12:33:07.427' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (31, 5, 3, 1, 1, CAST(N'2019-02-21T12:33:07.443' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (32, 5, 4, 1, 1, CAST(N'2019-02-21T12:33:07.453' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (33, 5, 5, 1, 1, CAST(N'2019-02-21T12:33:07.470' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (34, 1, 1, 1, 0, CAST(N'2019-02-21T14:32:41.313' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (35, 1, 2, 1, 0, CAST(N'2019-02-21T14:32:41.360' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (36, 1, 3, 1, 0, CAST(N'2019-02-21T14:32:41.377' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (37, 1, 4, 1, 0, CAST(N'2019-02-21T14:32:41.390' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (38, 1, 5, 1, 0, CAST(N'2019-02-21T14:32:41.403' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (39, 1, 22, 1, 0, CAST(N'2019-02-21T14:32:41.413' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (40, 3, 1, 1, 0, CAST(N'2019-02-21T14:32:54.437' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (41, 3, 2, 1, 0, CAST(N'2019-02-21T14:32:54.447' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (42, 3, 3, 1, 0, CAST(N'2019-02-21T14:32:54.463' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (43, 3, 4, 1, 0, CAST(N'2019-02-21T14:32:54.473' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (44, 3, 5, 1, 0, CAST(N'2019-02-21T14:32:54.490' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (45, 3, 22, 1, 0, CAST(N'2019-02-21T14:32:54.500' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (46, 4, 1, 1, 0, CAST(N'2019-02-21T14:33:01.823' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (47, 4, 2, 1, 0, CAST(N'2019-02-21T14:33:01.840' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (48, 4, 3, 1, 0, CAST(N'2019-02-21T14:33:01.850' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (49, 4, 4, 1, 0, CAST(N'2019-02-21T14:33:01.867' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (50, 4, 5, 1, 0, CAST(N'2019-02-21T14:33:01.880' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (51, 4, 22, 1, 0, CAST(N'2019-02-21T14:33:01.893' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (52, 5, 1, 1, 0, CAST(N'2019-02-21T14:33:09.267' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (53, 5, 2, 1, 0, CAST(N'2019-02-21T14:33:09.277' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (54, 5, 3, 1, 0, CAST(N'2019-02-21T14:33:09.290' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (55, 5, 4, 1, 0, CAST(N'2019-02-21T14:33:09.303' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (56, 5, 5, 1, 0, CAST(N'2019-02-21T14:33:09.317' AS DateTime))
+GO
+INSERT [dbo].[RoleModules] ([Id], [RoleId], [ModuleId], [IsActive], [IsDeleted], [CreationDate]) VALUES (57, 5, 22, 1, 0, CAST(N'2019-02-21T14:33:09.330' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[RoleModules] OFF
+GO
+SET IDENTITY_INSERT [dbo].[ParameterGroups] ON 
+GO
+INSERT [dbo].[ParameterGroups] ([Id], [Name], [Code], [IsActive], [IsDeleted], [CreationDate]) VALUES (1, N'Dosya Türleri', N'FileTypes', 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[ParameterGroups] ([Id], [Name], [Code], [IsActive], [IsDeleted], [CreationDate]) VALUES (2, N'', NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[ParameterGroups] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Parameters] ON 
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (1, N'DocumentExtensions', N'pdf;doc;docx;xls;xlsx', NULL, 1, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (2, N'ImageExtensions', N'jpg;jpeg;png;gif', NULL, 1, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (3, N'VideoExtensions', N'mp4', NULL, 1, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (4, N'AudioExtensions', N'mp3', NULL, 1, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (5, N'FileUploadFolder', N'\Contents\Files\', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (6, N'UserUploadFolder', N'\Contents\UserFiles\', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (7, N'UploadFolderDatePrefix', N'\\yyyy\\MM\\dd', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (8, N'AssetsFolder', N'\Assets\', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (9, N'InvalidLoginAction', N'Kullanıcı Hesabını Kilitle', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (10, N'InvalidLoginLimit', N'4', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (11, N'CaptchaStatus', N'Devre Dışı', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (12, N'ShowUserPhotoOnLogin', N'Hayır', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (13, N'LoginBackgroundPhotos', N'/Contents/Files/2018/07/19/97eda0-construction-40.jpg;/Contents/Files/2018/07/19/b1a5ad-construction-41.jpg;/Contents/Files/2018/07/19/3a37cb-construction-wallpaper-18.jpg;/Contents/Files/2018/07/19/314f58-construction-wallpaper-19.jpg;/Contents/Files/2018/07/19/c3efe3-construction-wallpaper-20.jpg;/Contents/Files/2018/07/19/2fb5c5-construction-wallpaper-22.jpg;/Contents/Files/2018/07/19/47b5df-construction-wallpaper-26.jpg;/Contents/Files/2018/07/19/893686-construction-wallpaper-39.jpg', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (14, N'GoogleReCaptchaSecretKey', N'6LeZ0BUUAAAAAECRtR6Gk_F_zTQ487C2VVtWwVj8', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (15, N'GoogleReCaptchaSiteKey', N'6LeZ0BUUAAAAAI0MNY8z0t-QuFtpdcgKi3F18Xlv', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (16, N'LdapDomain', N'10.6.12.10', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (17, N'LdapUsername', N'ytb\intranet.srvc', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (18, N'LdapPassword', N'c@sVbjxUWXwz', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (19, N'LdapFilter', N'OU=YTB Users', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (20, N'SiteHeader', N'İnşaat Hesabı', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (21, N'AzureLoginStatus', N'Devre Dışı', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (22, N'OneSignalAppId', N'adcaa5be-c7dc-4500-a5f9-df77542d6f7e', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Parameters] ([Id], [Key], [Value], [UserId], [ParameterGroupId], [IsActive], [IsDeleted], [CreationDate]) VALUES (23, N'OneSignalApiKey', N'MzJkY2QwMTEtYjJlNS00ZmQyLTg2OWEtYzY1ODY5ZWY1MTg3', NULL, NULL, 1, 0, CAST(N'2018-05-21T00:00:00.000' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[Parameters] OFF
+GO

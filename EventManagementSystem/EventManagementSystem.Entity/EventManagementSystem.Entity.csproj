@@ -62,9 +62,9 @@
     <Compile Include="Infrastructure\Repository.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="Log4NetLog\Log4NetLog.cs" />
-    <Compile Include="Migrations\201902201356258_a1.cs" />
-    <Compile Include="Migrations\201902201356258_a1.Designer.cs">
-      <DependentUpon>201902201356258_a1.cs</DependentUpon>
+    <Compile Include="Migrations\201902211143460_a1.cs" />
+    <Compile Include="Migrations\201902211143460_a1.Designer.cs">
+      <DependentUpon>201902211143460_a1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Authorization\Module.cs" />
@@ -83,8 +83,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902201356258_a1.resx">
-      <DependentUpon>201902201356258_a1.cs</DependentUpon>
+    <Content Include="Context\FirstData.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201902211143460_a1.resx">
+      <DependentUpon>201902211143460_a1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

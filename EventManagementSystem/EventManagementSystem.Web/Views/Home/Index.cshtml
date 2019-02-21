@@ -1,4 +1,8 @@
-﻿@using EventManagementSystem.Entity.Model.Common
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using EventManagementSystem.Entity.Model.Common
 @model EventManagementSystem.Web.Models.HomeModel
 @section Styles
 {
@@ -204,7 +208,7 @@ else
                                     <div class="text-right">
                                         <span class="fw-400">Lisans Durumu</span><br>
                                         <span>
-                                            <span class="fs-18 ml-1">@Model.UserLastLicenseType.Name</span>
+                                            @*<span class="fs-18 ml-1">@Model.UserLastLicenseType.Name</span>*@
                                         </span>
                                     </div>
                                 </div>
@@ -268,9 +272,9 @@ else
                         <h4 class="card-title"><strong>@(Model.User?.FullName)</strong></h4>
                         <div class="card-body">
                             <div class="flexbox gap-items-4">
-                                <img class="avatar avatar-xl" src="@(Model.User?.PhotoPath)"  onerror="this.src='/Assets/img/avatar/avatar_profile.jpg';">
+                                <img class="avatar avatar-xl" src="@(Model.User?.PhotoPath)" onerror="this.src='/Assets/img/avatar/avatar_profile.jpg';">
                                 <div class="flex-grow">
-                                    <p><small class="fs-13">@(Model.User.UsereType == UserType.Corporate ? Model.User.CompanyName : "Bireysel")</small></p>
+                                    @*<p><small class="fs-13">@(Model.User.UsereType == UserType.Corporate ? Model.User.CompanyName : "Bireysel")</small></p>*@
                                     <p class="fs-14 text-fade mb-12"><i class="fa fa-user" style="padding-right: 10px;"></i>@("Son Giriş: " + Model.User?.LastLoginDate.Value.ToString())</p>
                                     <p class="fs-14 text-fade mb-12"><i class="fa fa-envelope" style="padding-right: 10px;"></i>@(Model.User?.Email)</p>
                                 </div>
@@ -300,25 +304,25 @@ else
                         <div class="card-header">
                             <h5 class="card-title"><strong>Son Yapılan</strong> Projeler</h5>
                         </div>
-                        @if (Model.LastProjects.Count > 0)
-                        {
-                            <table class="table table-striped table-hover">
-                                <tbody>
-                                    @foreach (var item in Model.LastProjects.Take(6))
-                                    {
-                                        <tr>
-                                            <td><a class="hover-info" href="#">@(item.Name)</a></td>
-                                            <td class="text-muted w-80px">@(item.CreationDate.ToString("dd.MM.yyyy"))</td>
-                                            <td class="text-success fw-500 w-90px">@(item.CreationDate.ToString("HH:mm"))</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        }
-                        else
-                        {
-                            <center style="padding:10px;"><span>Listenecek hiç projeniz bulunmamaktadır.</span></center>
-                        }
+                        @*@if (Model.LastProjects.Count > 0)
+                            {
+                                <table class="table table-striped table-hover">
+                                    <tbody>
+                                        @foreach (var item in Model.LastProjects.Take(6))
+                                        {
+                                            <tr>
+                                                <td><a class="hover-info" href="#">@(item.Name)</a></td>
+                                                <td class="text-muted w-80px">@(item.CreationDate.ToString("dd.MM.yyyy"))</td>
+                                                <td class="text-success fw-500 w-90px">@(item.CreationDate.ToString("HH:mm"))</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <center style="padding:10px;"><span>Listenecek hiç projeniz bulunmamaktadır.</span></center>
+                            }*@
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -326,25 +330,25 @@ else
                         <div class="card-header">
                             <h5 class="card-title"><strong>Gider</strong> Özeti</h5>
                         </div>
-                        @if (Model.LastExpenses.Count > 0)
-                        {
-                            <table class="table table-striped table-hover">
-                                <tbody>
-                                    @foreach (var item in Model.LastExpenses.Take(6))
-                                    {
-                                        <tr>
-                                            <td><a class="hover-info" href="#">@(item.Name)</a></td>
-                                            <td class="text-muted w-80px">@(item.CreationDate.ToString("dd.MM.yyyy"))</td>
-                                            <td class="text-success fw-500 w-90px">@(item.CreationDate.ToString("HH:mm"))</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        }
-                        else
-                        {
-                            <center style="padding:10px;"><span>Listelenecek hiç harcamanız bulunmamaktadır.</span></center>
-                        }
+                        @*@if (Model.LastExpenses.Count > 0)
+                            {
+                                <table class="table table-striped table-hover">
+                                    <tbody>
+                                        @foreach (var item in Model.LastExpenses.Take(6))
+                                        {
+                                            <tr>
+                                                <td><a class="hover-info" href="#">@(item.Name)</a></td>
+                                                <td class="text-muted w-80px">@(item.CreationDate.ToString("dd.MM.yyyy"))</td>
+                                                <td class="text-success fw-500 w-90px">@(item.CreationDate.ToString("HH:mm"))</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <center style="padding:10px;"><span>Listelenecek hiç harcamanız bulunmamaktadır.</span></center>
+                            }*@
                     </div>
                 </div>
             </div>
@@ -352,13 +356,65 @@ else
     </main>
 }
 
-@section Scripts
-{
-
-
-    @if (Model.User.IsAdmin)
+@*@section Scripts
     {
-        <script>
+
+
+        @if (Model.User.IsAdmin)
+        {
+            <script>
+
+                app.ready(function () {
+
+                    new Chart($("#chart-pie"), {
+                        type: 'pie',
+
+                        // Data
+                        //
+                        data: {
+                            labels: [
+                                @foreach (var ProjectType in Model.ProjectTypes)
+                                {
+                                    <text>
+                                        "@(ProjectType.Name.Replace("ç", "c").Replace("Ç", "C"))",
+                                    </text>
+                                }
+                            ],
+                            datasets: [
+                                {
+                                    data: [
+                                        @foreach (var ProjectType in Model.ProjectTypes)
+                                        {
+                                            <text>
+                                                "@(Model.AdminDashboard.AllProjects.Count(x => x.ProjectTypeId==ProjectType.Id))",
+                                            </text>
+                                        }
+                                    ],
+                                    backgroundColor: [
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255,99,132,1)',
+                                        'rgb(204, 153, 0)',
+                                        'rgb(204, 51, 153)',
+                                        'rgb(255, 153, 153)',
+                                        'rgb(153, 255, 51)',
+                                    ]
+                                }]
+                        },
+
+                        // Options
+                        //
+                        options: {
+                            responsive: false
+                        }
+                    });
+
+
+                });
+            </script>
+        }
+        else
+        {
+            <script>
 
             app.ready(function () {
 
@@ -372,7 +428,7 @@ else
                             @foreach (var ProjectType in Model.ProjectTypes)
                             {
                                 <text>
-                                    "@(ProjectType.Name.Replace("ç", "c").Replace("Ç", "C"))",
+                                    "@(ProjectType.Name.Replace("ç","c").Replace("Ç", "C"))",
                                 </text>
                             }
                         ],
@@ -382,7 +438,7 @@ else
                                     @foreach (var ProjectType in Model.ProjectTypes)
                                     {
                                         <text>
-                                            "@(Model.AdminDashboard.AllProjects.Count(x => x.ProjectTypeId==ProjectType.Id))",
+                                            "@(Model.LastProjects.Count(x => x.ProjectTypeId==ProjectType.Id))",
                                         </text>
                                     }
                                 ],
@@ -406,58 +462,6 @@ else
 
 
             });
-        </script>
-    }
-    else
-    {
-        <script>
-
-        app.ready(function () {
-
-            new Chart($("#chart-pie"), {
-                type: 'pie',
-
-                // Data
-                //
-                data: {
-                    labels: [
-                        @foreach (var ProjectType in Model.ProjectTypes)
-                        {
-                            <text>
-                                "@(ProjectType.Name.Replace("ç","c").Replace("Ç", "C"))",
-                            </text>
-                        }
-                    ],
-                    datasets: [
-                        {
-                            data: [
-                                @foreach (var ProjectType in Model.ProjectTypes)
-                                {
-                                    <text>
-                                        "@(Model.LastProjects.Count(x => x.ProjectTypeId==ProjectType.Id))",
-                                    </text>
-                                }
-                            ],
-                            backgroundColor: [
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255,99,132,1)',
-                                'rgb(204, 153, 0)',
-                                'rgb(204, 51, 153)',
-                                'rgb(255, 153, 153)',
-                                'rgb(153, 255, 51)',
-                            ]
-                        }]
-                },
-
-                // Options
-                //
-                options: {
-                    responsive: false
-                }
-            });
-
-
-        });
-        </script>
-    }
-}
+            </script>
+        }
+    }*@

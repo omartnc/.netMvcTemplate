@@ -21,7 +21,7 @@
                             {
                                 <div class="form-group">
                                     <label class="switch switch-lg switch-success">
-                                        <input type="checkbox" value="@authorization.Id" name="UserAuthorizations" @(Model.User.UserRoles.Where(r => !r.IsDeleted).Select(r => r.RoleId).Contains(authorization.Id) ? "checked='checked'" : "") />
+                                        <input type="checkbox" value="@authorization.Id" name="UserRoles" @(Model.User.UserRoles.Where(r => !r.IsDeleted).Select(r => r.RoleId).Contains(authorization.Id) ? "checked='checked'" : "") />
                                         <span class="switch-indicator"></span>
                                         <span class="switch-description">
                                             <b>@authorization.Name</b> - @authorization.Description

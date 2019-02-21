@@ -4610,7 +4610,6 @@
     <Content Include="Views\Account\Settings.cshtml" />
     <Content Include="Views\Home\Footer.cshtml" />
     <Content Include="Views\Home\Header.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Sidebar.cshtml" />
     <Content Include="Views\Home\SidebarPozition.cshtml" />
     <Content Include="Views\Home\SiteTitle.cshtml" />
@@ -4624,6 +4623,8 @@
     <Content Include="Views\Authorization\UserAuthorizationEdit.cshtml" />
     <Content Include="Views\Authorization\UserEdit.cshtml" />
     <Content Include="Views\Authorization\UserList.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

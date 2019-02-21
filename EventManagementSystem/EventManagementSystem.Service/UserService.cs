@@ -177,7 +177,11 @@ namespace EventManagementSystem.Service
             var data = UserRepository.GetAll().Where(r => r.IsActive && r.IsTestUser == false && !r.IsDeleted).Select(x => new
             {
                 Id = x.Id,
-                FullName = x.FullName
+                FullName = x.FullName,
+                Email = x.Email,
+                CreationDate = x.CreationDate,
+                AuthorizationCount = x.UserRoles.Count(r => r.RoleId != null && !r.IsDeleted),
+                ModuleCount = x.UserRoles.Count(r => r.ModuleId != null && !r.IsDeleted)
             });
 
             var totalResultsCount = data.Count();

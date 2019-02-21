@@ -20,7 +20,7 @@
                             {
                                 <div class="form-group" style="margin-left: 0px;">
                                     <label class="switch switch-lg switch-success">
-                                        <input type="checkbox" value="@parentModule.Id" class="parent pr@(parentModule.Id)" name="AuthorizationItems" @(Model.RoleModules.Contains(parentModule.Id) ? "checked='checked'" : "") />
+                                        <input type="checkbox" value="@parentModule.Id" class="parent pr@(parentModule.Id)" name="RoleModules" @(Model.RoleModules.Contains(parentModule.Id) ? "checked='checked'" : "") />
                                         <span class="switch-indicator"></span>
                                         <span class="switch-description">
                                             @parentModule.Description
@@ -31,7 +31,7 @@
                                 {
                                     <div class="form-group" style="margin-left: 40px;">
                                         <label class="switch switch-lg switch-success">
-                                            <input type="checkbox" value="@module.Id" data-parent="@(module.ParentModuleId)" class="child p@(module.ParentModuleId)" name="AuthorizationItems" @(Model.RoleModules.Contains(module.Id) ? "checked='checked'" : "") />
+                                            <input type="checkbox" value="@module.Id" data-parent="@(module.ParentModuleId)" class="child p@(module.ParentModuleId)" name="RoleModules" @(Model.RoleModules.Contains(module.Id) ? "checked='checked'" : "") />
                                             <span class="switch-indicator"></span>
                                             <span class="switch-description">
                                                 @module.Description

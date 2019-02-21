@@ -15,15 +15,8 @@
         <h4>Kullanıcılar</h4>
         <header style="width: 100%; padding-top: 0px !important;">
             <div class="row">
-                <div class="form-group col-lg-3">
-                    <label>Kullanıcı Tipi:</label>
-                    @Html.DropDownListFor(model => model.User.IsAdmin, new SelectList(new[] { new { Value = "true", Text = "Personel" }, new { Value = "false", Text = "Müşteri" }, }, "Value", "Text", Model), "Hepsi", new { @class = "form-control_filtre", data_live_search = "true", data_provide = "selectpicker", data_size = "10" })
-                </div>
-                <div class="form-group col-lg-3">
-                    <label>Ödeme Durumu:</label>
-                    @Html.DropDownListFor(model => model.waitingPayment, new SelectList(new[] { new { Value = "true", Text = "Ödeme Yapan" }, new { Value = "false", Text = "Ödeme Bekleyen" }, }, "Value", "Text", Model), "Hepsi", new { @class = "form-control_filtre", data_live_search = "true", data_provide = "selectpicker", data_size = "10" })
-                </div>
-                <div class="form-group col-lg-3">
+                
+                <div class="form-group col-lg-10">
                     <label>Anahtar Kelime:</label>
                     <div class="input-group" style="width:100%;">
                         <input type="text" id="input_search" class="form-control" placeholder="Kullanıcı Adı Veya Kayıt Tarihi Yazınız..." aria-describedby="basic-addon1">
@@ -48,8 +41,6 @@
                             <tr>
                                 <th>Kullanıcı Adı Soyadı</th>
                                 <th>E-Posta Adresi</th>
-                                <th>Tip</th>
-                                <th>Paraşüt Müşt. No</th>
                                 <th>Kayıt Tarihi</th>
                                 <th>Erişim Yetkileri</th>
                             </tr>
@@ -106,8 +97,6 @@
                         }
                     },
                     { "data": "Email" },
-                    { "data": "Tip" },
-                    { "data": "ParasutNo" },
                     {
                         "data": "CreationDate",
                         "render": function (data) {

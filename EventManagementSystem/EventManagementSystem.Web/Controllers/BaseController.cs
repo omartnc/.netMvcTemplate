@@ -10,6 +10,7 @@ using log4net;
 
 namespace EventManagementSystem.Web.Controllers
 {
+    [Authorize]
     public class BaseController : Controller
     {
         public static readonly ILog Logger = LogManager.GetLogger(System.Environment.UserName);

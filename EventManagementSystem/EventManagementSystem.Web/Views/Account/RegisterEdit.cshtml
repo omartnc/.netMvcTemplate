@@ -24,7 +24,7 @@
                 <h4 class="mt-2 mb-0" style="font-weight:bold;color:white;">@Model.User.FullName</h4>
                 <span><i class="fa fa-map-marker w-20px"></i>@(String.IsNullOrEmpty(Model.User.CompanyName) ? (Model.User.IsAdmin ? "Personel" : Model.User.Email) : Model.User.CompanyName)</span>
             </div>
-            @if (!Model.User.IsAdmin)
+            @*@if (!Model.User.IsAdmin)
             {
                 <ul class="card-body flexbox flex-justified text-center" data-overlay="4">
                     <li>
@@ -40,7 +40,7 @@
                         <span class="fs-22">@Model.UserLastLicenseDay</span>
                     </li>
                 </ul>
-            }
+            }*@
         </div>
     </div>
     <div class="col-lg-12">
@@ -77,10 +77,10 @@
                             <label>E-Posta Adresi:</label>
                             @Html.TextBoxFor(model => model.User.Email, new { @class = "form-control" })
                         </div>
-                        <div class="form-group col-md-6">
+                        @*<div class="form-group col-md-6">
                             <label>Kayıt Tipi:</label>
                             @Html.EnumDropDownListFor(x => Model.User.UsereType, new { @class = "form-control" })
-                        </div>
+                        </div>*@
                     </div>
                     <div class="row">
                         <div class="form-group kisiselDiv col-md-6">
@@ -93,28 +93,28 @@
                             <label>Firma Adı:</label>
                             @Html.TextBoxFor(model => model.User.CompanyName, new { @class = "form-control" })
                         </div>
-                        <div class="form-group kurumsalDiv col-md-4">
+                        @*<div class="form-group kurumsalDiv col-md-4">
                             <label>Vergi Dairesi:</label>
                             @Html.TextBoxFor(model => model.User.TaxAdministration, new { @class = "form-control" })
                         </div>
                         <div class="form-group kurumsalDiv col-md-4">
                             <label>Vergi Numarası:</label>
                             @Html.TextBoxFor(model => model.User.TaxNumber, new { @class = "form-control" })
-                        </div>
+                        </div>*@
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-4">
-                            <label>Ülke:</label>
-                            @Html.DropDownListFor(model => model.SelectedCountryId, new SelectList(Model.CountryGroup, "Id", "Name"), "Ülke", new { @class = "form-control" })
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label>İl:</label>
-                            @Html.DropDownListFor(model => model.SelectedProvinceId, new SelectList(Model.ProvinceGroup, "Id", "Name"), "İl", new { @class = "form-control" })
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label>İlçe:</label>
-                            @Html.DropDownListFor(model => model.SelectedDistrictId, new SelectList(Model.DistrictGroup, "Id", "Name"), "İlçe", new { @class = "form-control" })
-                        </div>
+                        @*<div class="form-group col-md-4">
+            <label>Ülke:</label>
+            @Html.DropDownListFor(model => model.SelectedCountryId, new SelectList(Model.CountryGroup, "Id", "Name"), "Ülke", new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            <label>İl:</label>
+            @Html.DropDownListFor(model => model.SelectedProvinceId, new SelectList(Model.ProvinceGroup, "Id", "Name"), "İl", new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            <label>İlçe:</label>
+            @Html.DropDownListFor(model => model.SelectedDistrictId, new SelectList(Model.DistrictGroup, "Id", "Name"), "İlçe", new { @class = "form-control" })
+        </div>*@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
@@ -127,10 +127,10 @@
                             <label>Cep Telefonu:</label>
                             @Html.TextBoxFor(model => model.User.PhoneNumber, new { @class = "form-control", data_format = "+90 ({{999}}) {{999}} {{9999}}" })
                         </div>
-                        <div class="form-group kurumsalDiv col-md-6">
+                        @*<div class="form-group kurumsalDiv col-md-6">
                             <label>Sabit Hat Telefonu:</label>
                             @Html.TextBoxFor(model => model.User.SabitTelNumber, new { @class = "form-control", data_format = "+90 ({{999}}) {{999}} {{9999}}" })
-                        </div>
+                        </div>*@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -139,7 +139,7 @@
                             <div id="Dropzone" data-provide="dropzone" data-url="@Url.Action("UploadUserImage")" data-parallel-uploads="1" max-files="1" dict-default-message="Dosya yüklemek/değiştirmek için buraya tıklayın veya dosyayı sürükleyin."></div>
                         </div>
                         <div class="col-md-6">
-                            <label>Proje Resmi Önizlemesi:</label><br />
+                            <label>Profil Resmi Önizlemesi:</label><br />
                             <img id="MainPhoto" style="width:auto;min-width:150px;height:150px;" src="@(string.IsNullOrEmpty(Model.User.PhotoPath) ? "/Assets/img/avatar/avatar_profile.jpg" : (Model.User.PhotoPath + "?width=227&height=227&mode=max"))" alt="" />
                         </div>
                     </div>
@@ -204,7 +204,7 @@
                 2000);
         });
     </script>
-    <script>
+    @*<script>
         var selected = $("#@(Html.IdFor(model => model.User.UsereType))").find("option:selected").val();
         if (selected == 0) {
 
@@ -275,7 +275,7 @@
                 }
             });
         });
-    </script>
+    </script>*@
     <script>
         $(document).ready(function () {
             var elmnt = document.getElementsByClassName("main-content");

@@ -13,7 +13,7 @@ namespace EventManagementSystem.Entity.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201902201356258_a1"; }
+            get { return "201902211143460_a1"; }
         }
         
         string IMigrationMetadata.Source

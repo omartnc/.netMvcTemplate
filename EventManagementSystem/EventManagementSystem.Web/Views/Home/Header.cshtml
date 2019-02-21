@@ -23,10 +23,13 @@
 
     <div class="topbar-divider"></div>
     <ul class="topbar-btns">
-        <li class="header-profile-name" style="margin-top:0px;width:250px;text-align: right;">
-            <span data-provide="tooltip">
-                @Html.Raw(Model.User.FullName + (Model.User.IsAdmin == false ? (Model.User.IsEmployee == true ? "<br /> Çalışan" : "<br /> Kalan Proje Hakkı: <strong>" + Model.UserRemainingProjectConut.ToString() + "</strong>") : "<br /> Personel"))
-            </span>
+        <li class="header-profile-name" style="margin-top: 0px; width: 250px; text-align: right;">
+            
+            <a href="@Url.Action("RegisterEdit", "Account")" style="color: black;">
+                <span data-provide="tooltip">
+                    @Html.Raw(Model.User.FullName + (Model.User.IsAdmin == false ? (Model.User.IsEmployee == true ? "<br /> Çalışan" : "<br /> Kalan Proje Hakkı: <strong>" + Model.UserRemainingProjectConut.ToString() + "</strong>") : "<br /> Personel"))
+                </span>
+            </a>
         </li>
     </ul>
 </div>

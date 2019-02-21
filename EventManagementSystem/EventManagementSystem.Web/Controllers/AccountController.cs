@@ -669,6 +669,7 @@ namespace EventManagementSystem.Web.Controllers
         }
 
         [Route("kayit-ol")]
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult Register(AccountModel accountModel)
         {
@@ -707,6 +708,7 @@ namespace EventManagementSystem.Web.Controllers
                         registerUser.FullName = accountModel.User.FullName;
                         registerUser.Email = accountModel.User.Email;
                         registerUser.Password = accountModel.User.Password;
+                        registerUser.Username = accountModel.User.Username;
                        
                         registerUser.Adress = accountModel.User.Adress;
                         registerUser.PhoneNumber = (accountModel.User.PhoneNumber == "0000 000 00 00" ? "" : PhoneMaskHelper.FormatPhoneNumber(accountModel.User.PhoneNumber));
@@ -848,8 +850,6 @@ namespace EventManagementSystem.Web.Controllers
                 
                 accountModel.User = user;
                 
-
-                accountModel.User = user;
                 
             }
             catch (Exception e)
@@ -861,7 +861,6 @@ namespace EventManagementSystem.Web.Controllers
 
         [AuthorizeUser(Action = "RegisterEdit")]
         [Route("duzenle")]
-        [AllowAnonymous]
         [HttpPost]
         public ActionResult RegisterEdit(AccountModel accountModel)
         {
