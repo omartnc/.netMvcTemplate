@@ -493,7 +493,7 @@ namespace EventManagementSystem.Web.Controllers
                     if (authUser == null)
                     {
                         accountModel.HasError = true;
-                        accountModel.ErrorMessage = "Kullanıcınız Insaat Hesabı Portal'i kullanmak için yetkili değildir.";
+                        accountModel.ErrorMessage = "Kullanıcınız " + accountModel.SiteHeader + " Portal'i kullanmak için yetkili değildir.";
 
                         return Json(new LoginJsonModel
                         {
@@ -778,7 +778,7 @@ namespace EventManagementSystem.Web.Controllers
                     else
                     {
                         accountModel.HasError = true;
-                        accountModel.ErrorMessage = "Bu E-Mail Insaat Hesabı Portal'ine daha önceden kayıt yaptırmıştır.";
+                        accountModel.ErrorMessage = "Bu E-Mail " + accountModel.SiteHeader + " Portal'ine daha önceden kayıt yaptırmıştır.";
                         return View(accountModel);
                     }
 

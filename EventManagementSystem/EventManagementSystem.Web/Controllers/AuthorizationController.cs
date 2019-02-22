@@ -208,7 +208,7 @@ namespace EventManagementSystem.Web.Controllers
                         else
                         {
                             accountModel.HasError = true;
-                            accountModel.ErrorMessage = "Bu E-Mail Insaat Hesabı Portal'ine daha önceden kayıt yaptırmıştır.";
+                            accountModel.ErrorMessage = "Bu E-Mail " + accountModel.SiteHeader + " Portal'ine daha önceden kayıt yaptırmıştır.";
                             return View(accountModel);
                         }
                     }

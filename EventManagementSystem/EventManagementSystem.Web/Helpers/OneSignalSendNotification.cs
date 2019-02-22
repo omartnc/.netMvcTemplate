@@ -18,7 +18,7 @@ namespace EventManagementSystem.Web.Helpers
             ApiKey = new ParameterService().GetValueByKey("OneSignalApiKey");
             AppId = new ParameterService().GetValueByKey("OneSignalAppId");
         }
-        public string Send(string Message, string Url, List<int> FilterUserIds, DateTime? StartingDate, DateTime? EndingDate, string title = "Insaat Hesabı Portal")
+        public string Send(string Message, string Url, List<int> FilterUserIds, DateTime? StartingDate, DateTime? EndingDate, string title = "Sistem Portal")
         {
             var client = new OneSignalClient(ApiKey);
 
