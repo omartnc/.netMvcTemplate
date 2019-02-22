@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="BaseService.cs" />
     <Compile Include="FileService.cs" />
+    <Compile Include="Helper\UserRoleCookie.cs" />
     <Compile Include="ModuleService.cs" />
     <Compile Include="ParameterService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

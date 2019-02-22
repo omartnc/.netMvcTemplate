@@ -10,6 +10,7 @@ using EventManagementSystem.Entity.Model.Authorization;
 using EventManagementSystem.Entity.Model.Common;
 using EventManagementSystem.Helper;
 using EventManagementSystem.Service;
+using EventManagementSystem.Service.Helper;
 using EventManagementSystem.Web.Helpers;
 using EventManagementSystem.Web.Models;
 using Iyzipay;
@@ -31,6 +32,7 @@ namespace EventManagementSystem.Web.Controllers
         {
             try
             {
+                UserRoleCookie.CookieRemove();
                 var userService = new UserService();
                 var passPhrase = ConfigurationManager.AppSettings["EncKey"];
                 key = Base64Converter.Decode(key);
@@ -64,6 +66,7 @@ namespace EventManagementSystem.Web.Controllers
             var random = new Random();
             var accountModel = new AccountModel();
 
+            UserRoleCookie.CookieRemove();
             try
             {
                 GenarateCommonModel(accountModel);
@@ -405,6 +408,7 @@ namespace EventManagementSystem.Web.Controllers
             try
             {
 
+                UserRoleCookie.CookieRemove();
                 var authUser = UserService.Get(email, password);
                 if (authUser == null)
                 {
