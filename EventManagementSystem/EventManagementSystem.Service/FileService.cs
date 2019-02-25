@@ -20,11 +20,11 @@ namespace EventManagementSystem.Service
             FileRepository.Add(item);
         }
 
-        public ParameterService ParameterService { get; set; }=new ParameterService();
+        public ParameterService ParameterService { get; set; } = new ParameterService();
         public File UploadFile(Image image, string fileName, string tags = "", string uploadPath = "")
         {
             var rootPath = HttpContext.Current.Server.MapPath("~/");
-            var datePrefix =ParameterService.GetValueByKey("UploadFolderDatePrefix");
+            var datePrefix = ParameterService.GetValueByKey("UploadFolderDatePrefix");
             var datePath = DateTime.Now.ToString(datePrefix, CultureInfo.InvariantCulture);
             if (string.IsNullOrEmpty(uploadPath))
                 uploadPath = ParameterService.GetValueByKey("FileUploadFolder");
@@ -54,8 +54,8 @@ namespace EventManagementSystem.Service
             var datePrefix = ParameterService.GetValueByKey("UploadFolderDatePrefix");
             var datePath = DateTime.Now.ToString(datePrefix, CultureInfo.InvariantCulture);
 
-            if (string.IsNullOrEmpty(uploadPath)) ;
-            uploadPath = ParameterService.GetValueByKey("FileUploadFolder");
+            if (string.IsNullOrEmpty(uploadPath))
+                uploadPath = ParameterService.GetValueByKey("FileUploadFolder");
             var folderPath = Path.Combine(rootPath.Trim('\\'), uploadPath.Trim('\\'), datePath.Trim('\\'));
             string fullPath;
 
