@@ -26,6 +26,7 @@ namespace EventManagementSystem.Service.Helper
                 Cookie["permitted_access_module_" + i] = permitted_access_modules[i].ToString();
             }
 
+            Cookie.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(Cookie);
         }
 
