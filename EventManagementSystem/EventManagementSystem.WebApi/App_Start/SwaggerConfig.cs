@@ -27,24 +27,24 @@ namespace EventManagementSystem.WebApi
                 {
                 });
         }
-        public class CultureAwareOperationFilter : IOperationFilter
+    }
+    public class CultureAwareOperationFilter : IOperationFilter
+    {
+        public void Apply(Operation operation, SchemaRegistry schemaRegistry, ApiDescription apiDescription)
         {
-            public void Apply(Operation operation, SchemaRegistry schemaRegistry, ApiDescription apiDescription)
+            if (operation.parameters == null)
             {
-                if (operation.parameters == null)
-                {
-                    operation.parameters = new List<Parameter>();
-                }
-
-                operation.parameters.Add(new Parameter
-                {
-                    name = "Authorization",
-                    @in = "header",
-                    type = "string",
-                    required = true,
-                    @default = "Bearer "
-                });
+                operation.parameters = new List<Parameter>();
             }
+
+            operation.parameters.Add(new Parameter
+            {
+                name = "Authorization",
+                @in = "header",
+                type = "string",
+                required = true,
+                @default = "Bearer "
+            });
         }
     }
 }
