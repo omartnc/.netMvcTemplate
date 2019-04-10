@@ -29,6 +29,20 @@ namespace EventManagementSystem.Service
                 return null;
             }
         }
+        public User GetForApi()
+        {
+            try
+            {
+                var contextUser = HttpContextHelper.ApiHttpContextUsername;
+                if (string.IsNullOrEmpty(contextUser))
+                    return null;
+                return int.TryParse(contextUser, out var userId) ? Get(userId) : GetByUsername(contextUser);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
         public User Get(int id)
         {
             return UserRepository.GetById(id);

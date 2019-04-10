@@ -12,6 +12,7 @@ namespace EventManagementSystem.WebApi
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            log4net.Config.DOMConfigurator.Configure();
         }
     }
 }

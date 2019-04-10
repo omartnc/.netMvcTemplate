@@ -18,7 +18,7 @@ namespace EventManagementSystem.Service
             if (permitted_access_modules == null || permitted_access_modules.Count == 0)
             {
 
-                permitted_access_modules = UserRoleCookie.CookieGet();
+                //permitted_access_modules = UserRoleCookie.CookieGet();
                 if (permitted_access_modules == null || permitted_access_modules.Count == 0)
                 {
                     // user'ın sahip oldugu authları cekiyor.
