@@ -60,5 +60,9 @@ namespace EventManagementSystem.Service
         {
             UserRoleRepository.Delete(id);
         }
+        public void DeleteReal(int id)
+        {
+            UserRoleRepository.DeleteReal(id);
+        }
     }
 }

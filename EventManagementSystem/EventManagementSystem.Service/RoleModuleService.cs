@@ -32,5 +32,9 @@ namespace EventManagementSystem.Service
         {
             RoleModuleRepository.Delete(id);
         }
+        public void DeleteReal(int id)
+        {
+            RoleModuleRepository.DeleteReal(id);
+        }
     }
 }

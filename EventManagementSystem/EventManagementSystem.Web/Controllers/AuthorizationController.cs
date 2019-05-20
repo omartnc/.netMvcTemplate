@@ -403,7 +403,7 @@ namespace EventManagementSystem.Web.Controllers
                 var authorizationItems = RoleModuleService.GetAll(authorizationId);
                 foreach (var authorizationItem in authorizationItems)
                 {
-                    RoleModuleService.Delete(authorizationItem.Id);
+                    RoleModuleService.DeleteReal(authorizationItem.Id);
                 }
 
                 var newItems = authorizationModel.RoleModules?.ToList();
