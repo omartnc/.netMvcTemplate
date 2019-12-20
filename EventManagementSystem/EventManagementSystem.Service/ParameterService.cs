@@ -36,6 +36,12 @@ namespace EventManagementSystem.Service
                 .GetAll(r => r.ParameterGroupId == parameterGroupId)
                 .ToList();
         }
+        public List<Parameter> GetAll()
+        {
+            return ParameterRepository
+                .GetAll()
+                .ToList();
+        }
         public void Update(Parameter item)
         {
             ParameterRepository.Update(item);

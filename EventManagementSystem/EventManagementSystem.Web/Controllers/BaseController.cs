@@ -35,6 +35,7 @@ namespace EventManagementSystem.Web.Controllers
         public RoleModuleService RoleModuleService = new RoleModuleService();
         public UserRoleService UserRoleService = new UserRoleService();
         public FileService FileService = new FileService();
+        public Log4NetLogService Log4NetLogService = new Log4NetLogService();
         public User CurrentUser = null;
 
         public BaseController()

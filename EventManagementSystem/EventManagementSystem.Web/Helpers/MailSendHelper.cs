@@ -20,12 +20,20 @@ namespace EventManagementSystem.Web.Helpers
 
             try
             {
-                var fromAddress = new MailAddress("bilgilendirme@EventManagementSystem.com", "İnşaat Hesabı");
+
+                string EmailSenderAddress = System.Configuration.ConfigurationManager.AppSettings["EmailSenderAddress"].ToString();
+                string EmailSenderPassword = System.Configuration.ConfigurationManager.AppSettings["EmailSenderPassword"].ToString();
+                string EmailSenderName = System.Configuration.ConfigurationManager.AppSettings["EmailSenderName"].ToString();
+                string EmailSenderSmtp = System.Configuration.ConfigurationManager.AppSettings["EmailSenderSmtp"].ToString();
+                int EmailSenderSmtpPort = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["EmailSenderSmtpPort"].ToString());
+
+
+                var fromAddress = new MailAddress(EmailSenderAddress, EmailSenderName);
                 var toAddress = new MailAddress(model.MailAddress);
                 string subject = model.Subject;
-                SmtpClient smtp = new SmtpClient("smtp.yandex.ru",587);
+                SmtpClient smtp = new SmtpClient(EmailSenderSmtp, EmailSenderSmtpPort);
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Credentials = new NetworkCredential(fromAddress.Address, "asdfghQW33.");
+                smtp.Credentials = new NetworkCredential(fromAddress.Address, EmailSenderPassword);
                 smtp.EnableSsl = true;
                 var message = new MailMessage(fromAddress, toAddress);
                 message.Subject = subject;

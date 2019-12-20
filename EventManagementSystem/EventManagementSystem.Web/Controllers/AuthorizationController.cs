@@ -46,7 +46,7 @@ namespace EventManagementSystem.Web.Controllers
                 return View(new AuthorizationModel());
             }
         }
-        
+
         [AuthorizeUser(Action = "UserList")]
         [Route("kullanicilar/liste/{userID?}")]
         [HttpGet]
@@ -68,7 +68,7 @@ namespace EventManagementSystem.Web.Controllers
                 return View(new AuthorizationModel());
             }
         }
-        
+
         [AuthorizeUser(Action = "UserList")]
         [Route("user-query")]
         [HttpPost]
@@ -86,7 +86,7 @@ namespace EventManagementSystem.Web.Controllers
                 return Json("");
             }
         }
-        
+
         [AuthorizeUser(Action = "UserEdit")]
         [Route("kullanicilar/duzenle")]
         [HttpGet]
@@ -105,7 +105,7 @@ namespace EventManagementSystem.Web.Controllers
                     accountModel.LoginBackgroundPhoto = accountModel.LoginBackgroundPhotos?[random.Next(accountModel.LoginBackgroundPhotos.Length)];
 
                     var user = UserService.Get(UserId);
-                    
+
                     accountModel.User = user;
                 }
                 else
@@ -113,7 +113,7 @@ namespace EventManagementSystem.Web.Controllers
                     GenarateCommonModel(accountModel);
                     accountModel.LoginBackgroundPhoto = accountModel.LoginBackgroundPhotos?[random.Next(accountModel.LoginBackgroundPhotos.Length)];
 
-                    
+
                     accountModel.User = new User();
                     accountModel.User.MailPermission = true;
                 }
@@ -127,7 +127,7 @@ namespace EventManagementSystem.Web.Controllers
 
             return View(accountModel);
         }
-        
+
         [AuthorizeUser(Action = "UserEdit")]
         [Route("kullanicilar/duzenle")]
         [HttpPost]
@@ -166,43 +166,43 @@ namespace EventManagementSystem.Web.Controllers
                                 return View(accountModel);
                             }
 
-                            
+
 
                             registerUser.FullName = accountModel.User.FullName;
                             registerUser.Email = accountModel.User.Email;
-                            registerUser.Password = accountModel.User.Password;
+                            registerUser.Password = md5Helper.GetMD5_2(accountModel.User.Password);
                             registerUser.Adress = accountModel.User.Adress;
                             registerUser.PhoneNumber = PhoneMaskHelper.FormatPhoneNumber(accountModel.User.PhoneNumber);
                             registerUser.MailPermission = accountModel.User.MailPermission;
                             registerUser.IsActive = accountModel.User.IsActive;
                             registerUser.IsAdmin = accountModel.User.IsAdmin;
 
-                            
-                                registerUser.CompanyName = accountModel.User.CompanyName;
-                               
-                                registerUser.TCKN = accountModel.User.TCKN;
-                            
+
+                            registerUser.CompanyName = accountModel.User.CompanyName;
+
+                            registerUser.TCKN = accountModel.User.TCKN;
+
 
 
                             registerUser.IsTestUser = false;
                             registerUser.MailConfirmation = true;
                             UserService.Add(registerUser);
 
-                            
 
-                            
-                                var userGroup = RoleService.GetByName("Standart Kullanıcı");
-                                if (userGroup != null)
+
+
+                            var userGroup = RoleService.GetByName("Standart Kullanıcı");
+                            if (userGroup != null)
+                            {
+                                UserRoleService.Add(new UserRole
                                 {
-                                    UserRoleService.Add(new UserRole
-                                    {
-                                        RoleId  = userGroup.Id,
-                                        UserId = registerUser.Id,
-                                        IsActive = true,
-                                        IsDeleted = false
-                                    });
-                                }
-                                
+                                    RoleId = userGroup.Id,
+                                    UserId = registerUser.Id,
+                                    IsActive = true,
+                                    IsDeleted = false
+                                });
+                            }
+
                             return View(accountModel);
                         }
                         else
@@ -218,8 +218,8 @@ namespace EventManagementSystem.Web.Controllers
                         var authUser = UserService.Get(UserId);
                         if (authUser != null)
                         {
-                           
-                           
+
+
                             var userOther = UserService.GetByEmail(accountModel.User.Email);
                             if (userOther != null && userOther.Id != authUser.Id)
                             {
@@ -230,16 +230,16 @@ namespace EventManagementSystem.Web.Controllers
                             }
 
                             authUser.FullName = accountModel.User.FullName;
-                            authUser.Password = accountModel.User.Password;
+                            authUser.Password = md5Helper.GetMD5_2(accountModel.User.Password);
                             authUser.PhotoPath = accountModel.User.PhotoPath;
                             authUser.Adress = accountModel.User.Adress;
                             authUser.PhoneNumber = PhoneMaskHelper.FormatPhoneNumber(accountModel.User.PhoneNumber);
 
-                            
-                                authUser.CompanyName = accountModel.User.CompanyName;
-                          
-                                authUser.TCKN = accountModel.User.TCKN;
-                            
+
+                            authUser.CompanyName = accountModel.User.CompanyName;
+
+                            authUser.TCKN = accountModel.User.TCKN;
+
 
                             authUser.MailPermission = accountModel.User.MailPermission;
                             authUser.IsActive = accountModel.User.IsActive;
@@ -271,7 +271,7 @@ namespace EventManagementSystem.Web.Controllers
                 return View(accountModel);
             }
         }
-        
+
         #region registerJsonResult
 
         [Route("kullanici-resim-yukle")]
@@ -527,16 +527,17 @@ namespace EventManagementSystem.Web.Controllers
                 new SelectListItem {Text = "Hayır"},
                 new SelectListItem {Text = "Evet"}
             };
+                var ParameterKeys = ParameterService.GetAll();
 
-                model.InvalidLoginAction = ParameterService.GetValueByKey("InvalidLoginAction");
-                model.InvalidLoginLimit = ParameterService.GetValueByKey("InvalidLoginLimit");
-                model.CaptchaStatus = ParameterService.GetValueByKey("CaptchaStatus");
-                model.AzureLoginStatus = ParameterService.GetValueByKey("AzureLoginStatus");
-                model.ShowUserPhotoOnLogin = ParameterService.GetValueByKey("ShowUserPhotoOnLogin");
-                model.LoginBackgroundPhotos = ParameterService.GetValueByKey("LoginBackgroundPhotos")?.Split(';');
-                model.SiteHeader = ParameterService.GetValueByKey("SiteHeader");
-                model.OneSignalAppId = ParameterService.GetValueByKey("OneSignalAppId");
-                model.OneSignalApiKey = ParameterService.GetValueByKey("OneSignalApiKey");
+                model.InvalidLoginAction = ParameterKeys.FirstOrDefault(r => r.Key == "InvalidLoginAction")?.Value;
+                model.InvalidLoginLimit = ParameterKeys.FirstOrDefault(r => r.Key == "InvalidLoginLimit")?.Value;
+                model.CaptchaStatus = ParameterKeys.FirstOrDefault(r => r.Key == "CaptchaStatus")?.Value;
+                model.AzureLoginStatus = ParameterKeys.FirstOrDefault(r => r.Key == "AzureLoginStatus")?.Value;
+                model.ShowUserPhotoOnLogin = ParameterKeys.FirstOrDefault(r => r.Key == "ShowUserPhotoOnLogin")?.Value;
+                model.LoginBackgroundPhotos = ParameterKeys.FirstOrDefault(r => r.Key == "LoginBackgroundPhotos")?.Value?.Split(';');
+                model.SiteHeader = ParameterKeys.FirstOrDefault(r => r.Key == "SiteHeader")?.Value;
+                model.OneSignalAppId = ParameterKeys.FirstOrDefault(r => r.Key == "OneSignalAppId")?.Value;
+                model.OneSignalApiKey = ParameterKeys.FirstOrDefault(r => r.Key == "OneSignalApiKey")?.Value;
             }
             catch (Exception e)
             {

@@ -484,7 +484,7 @@ namespace EventManagementSystem.Web.Controllers
                 accountModel.User = new User();
 
                 accountModel.User.Email = Email;
-                accountModel.User.Password = Password;
+                accountModel.User.Password = md5Helper.GetMD5_2(Password);
 
 
                 try
@@ -711,7 +711,7 @@ namespace EventManagementSystem.Web.Controllers
 
                         registerUser.FullName = accountModel.User.FullName;
                         registerUser.Email = accountModel.User.Email;
-                        registerUser.Password = accountModel.User.Password;
+                        registerUser.Password = md5Helper.GetMD5_2(accountModel.User.Password);
                         registerUser.Username = accountModel.User.Username;
                        
                         registerUser.Adress = accountModel.User.Adress;
@@ -987,14 +987,14 @@ namespace EventManagementSystem.Web.Controllers
                     var authUser = CurrentUser;
                     if (authUser != null)
                     {
-                        if (CurrentUser.Password != accountModel.User.Password)
+                        if (authUser.Password != md5Helper.GetMD5_2(accountModel.User.Password))
                         {
 
                             accountModel.HasError = true;
                             accountModel.ErrorMessage = "Eski Şifre Yanlış !";
                             return View(accountModel);
                         }
-                        if (CurrentUser.Password == accountModel.PasswordNew)
+                        if (authUser.Password ==  md5Helper.GetMD5_2(accountModel.PasswordNew))
                         {
 
                             accountModel.HasError = true;
@@ -1014,7 +1014,7 @@ namespace EventManagementSystem.Web.Controllers
 
                         authUser.IsChangePassword = true;
                         authUser.ChangePasswordCode = Guid.NewGuid().ToString().Replace("-", "").ToLower();
-                        authUser.Password = accountModel.PasswordNew;
+                        authUser.Password = md5Helper.GetMD5_2(accountModel.PasswordNew);
 
                         UserService.Update(authUser);
 
@@ -1192,7 +1192,7 @@ namespace EventManagementSystem.Web.Controllers
                 {
                     user.ChangePasswordCode = Guid.NewGuid().ToString().Replace("-", "").ToLower();
                     user.IsChangePassword = true;
-                    user.Password = Model.User.Password;
+                    user.Password = md5Helper.GetMD5_2(Model.User.Password);
                     UserService.Update(user);
                     AccountModel.HasError = false;
                     AccountModel.ErrorMessage = "Şifreniz değiştirildi.";
@@ -1324,6 +1324,7 @@ namespace EventManagementSystem.Web.Controllers
             return "";
         }
 
+
         private void GenarateCommonModel(AccountModel model)
         {
 
@@ -1355,15 +1356,17 @@ namespace EventManagementSystem.Web.Controllers
                 new SelectListItem {Text = "Evet"}
             };
 
-                model.InvalidLoginAction = ParameterService.GetValueByKey("InvalidLoginAction");
-                model.InvalidLoginLimit = ParameterService.GetValueByKey("InvalidLoginLimit");
-                model.CaptchaStatus = ParameterService.GetValueByKey("CaptchaStatus");
-                model.AzureLoginStatus = ParameterService.GetValueByKey("AzureLoginStatus");
-                model.ShowUserPhotoOnLogin = ParameterService.GetValueByKey("ShowUserPhotoOnLogin");
-                model.LoginBackgroundPhotos = ParameterService.GetValueByKey("LoginBackgroundPhotos")?.Split(';');
-                model.SiteHeader = ParameterService.GetValueByKey("SiteHeader");
-                model.OneSignalAppId = ParameterService.GetValueByKey("OneSignalAppId");
-                model.OneSignalApiKey = ParameterService.GetValueByKey("OneSignalApiKey");
+                var ParameterKeys = ParameterService.GetAll();
+
+                model.InvalidLoginAction = ParameterKeys.FirstOrDefault(r => r.Key == "InvalidLoginAction")?.Value;
+                model.InvalidLoginLimit = ParameterKeys.FirstOrDefault(r => r.Key == "InvalidLoginLimit")?.Value;
+                model.CaptchaStatus = ParameterKeys.FirstOrDefault(r => r.Key == "CaptchaStatus")?.Value;
+                model.AzureLoginStatus = ParameterKeys.FirstOrDefault(r => r.Key == "AzureLoginStatus")?.Value;
+                model.ShowUserPhotoOnLogin = ParameterKeys.FirstOrDefault(r => r.Key == "ShowUserPhotoOnLogin")?.Value;
+                model.LoginBackgroundPhotos = ParameterKeys.FirstOrDefault(r => r.Key == "LoginBackgroundPhotos")?.Value?.Split(';');
+                model.SiteHeader = ParameterKeys.FirstOrDefault(r => r.Key == "SiteHeader")?.Value;
+                model.OneSignalAppId = ParameterKeys.FirstOrDefault(r => r.Key == "OneSignalAppId")?.Value;
+                model.OneSignalApiKey = ParameterKeys.FirstOrDefault(r => r.Key == "OneSignalApiKey")?.Value;
             }
             catch (Exception e)
             {

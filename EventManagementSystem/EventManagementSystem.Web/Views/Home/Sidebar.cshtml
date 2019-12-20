@@ -40,6 +40,15 @@
                     @if (isAllowedAuthorization)
                     {
                         <li class="menu-item">
+                            <a class="menu-link" href="@Url.Action("List", "Log")">
+                                <span class="dot leftmenu-management-dotcolor"></span>
+                                <span class="title leftmenu-management-fontcolor">Loglar</span>
+                            </a>
+                        </li>
+                    }
+                    @if (isAllowedAuthorization)
+                    {
+                        <li class="menu-item">
                             <a class="menu-link" href="@Url.Action("Settings", "Account")">
                                 <span class="dot leftmenu-management-dotcolor"></span>
                                 <span class="title leftmenu-management-fontcolor">Giriş Sayfası Ayarları</span>

@@ -3,3 +3,7 @@
 ################################################################################
 
 /EventManagementSystem/.vs/DotNetMvcTemplate/v15
+*.lock
+*.ide
+*.ide-shm
+*.ide-wal
